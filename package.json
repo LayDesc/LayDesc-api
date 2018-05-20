@@ -6,7 +6,7 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "\"attente\""
+    "url": "git@github.com:LayDesc/LayDesc-api.git"
   },
   "keywords": [
     "LayDesc",
