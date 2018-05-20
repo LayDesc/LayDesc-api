@@ -1,0 +1,27 @@
+{
+  "name": "laydesc-api",
+  "version": "0.0.1",
+  "description": "LayDesc API. Programming interface for creating LayDesc documents. LayDesc API allows generating a generic representation of LayDesc document content (in JSON format). To visualize a LayDesc document, use this API with a LayDesc-renderer (currently LayDesc-renderer-html or LayDesc-renderer-InDesign)",
+  "main": "dist/main.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "\"attente\""
+  },
+  "keywords": [
+    "LayDesc",
+    "layout-tools",
+    "layout",
+    "print",
+    "graphic-design",
+    "pdf",
+    "pdf-document"
+  ],
+  "author": "nicolas baldran",
+  "license": "ISC",
+  "dependencies": {
+    "npm": "^6.0.1",
+    "to": "^0.2.9",
+    "update": "^0.7.4"
+  }
+}
