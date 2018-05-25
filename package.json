@@ -23,5 +23,14 @@
     "npm": "^6.0.1",
     "to": "^0.2.9",
     "update": "^0.7.4"
+  },
+  "devDependencies": {
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
   }
 }
