@@ -1,5 +1,6 @@
 import {LayDesc} from "../../../src/main";
-import PageTemplate = LayDesc.PageTemplate;
+
+// import * as LayDesc from "../../../dist/LayDesc.js"
 
 LayDesc.DEBUG = true;
 
