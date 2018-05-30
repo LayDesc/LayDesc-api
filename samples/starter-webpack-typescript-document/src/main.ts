@@ -1,32 +1,30 @@
-import {LayDesc} from "../../../src/main";
+import * as layDesc from "../../../src/main";
 
-// import * as LayDesc from "../../../dist/LayDesc.js"
+layDesc.env.DEBUG = true;
 
-LayDesc.DEBUG = true;
+console.log(layDesc);
 
-console.log(LayDesc);
-
-const doc = new LayDesc.Document({
+const doc = new layDesc.Document({
     guides: {
         show: true,
         horizontal: [
-            new LayDesc.Guides.Horizontal(10),
+            new layDesc.Horizontal(10),
         ]
     },
     pageTemplates: [
         {
             name: "left",
         },
-        new LayDesc.PageTemplate("hello"),
+        new layDesc.PageTemplate("hello"),
     ]
 });
 
 console.log(doc);
 
-const template = new LayDesc.PageTemplate("hello");
+const template = new layDesc.PageTemplate("hello");
 console.log(template);
 
-const template2 = new LayDesc.PageTemplate("hello", {
+const template2 = new layDesc.PageTemplate("hello", {
     marginSettings: {
         bottom: 100,
     }

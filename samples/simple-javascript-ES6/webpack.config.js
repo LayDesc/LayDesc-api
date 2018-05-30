@@ -4,6 +4,7 @@ const distDirectoryName = "dist";
 const indexHtml = path.join(__dirname, srcDirectoryName, "index.html");
 
 module.exports = {
+    mode: "development",
     entry:[
         path.join(__dirname, srcDirectoryName,"/main.js"),
         indexHtml,
@@ -12,8 +13,6 @@ module.exports = {
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, distDirectoryName),
-        library: "LayDesc",
-        libraryTarget: "umd"
     },
     module: {
         rules: [

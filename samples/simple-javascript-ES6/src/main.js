@@ -1,5 +1,10 @@
-import * as LayDesc from "../../../dist/LayDesc"
+import * as layDesc from "../../../lib/layDesc/main"
 
-LayDesc.hello();
+const doc = new layDesc.Document({
+    guides: {
+        show: true,
+        vertical: new layDesc.Vertical(10),
+    }
+});
 
-console.log(new LayDesc.Hello());
+console.log(doc);
