@@ -4,27 +4,27 @@ layDesc.env.DEBUG = true;
 
 console.log(layDesc);
 
-const doc = new layDesc.Document({
+const doc = new layDesc.document.Document({
     guides: {
         show: true,
         horizontal: [
-            new layDesc.Horizontal(10),
+            new layDesc.guide.Horizontal(10),
         ]
     },
     pageTemplates: [
         {
             name: "left",
         },
-        new layDesc.PageTemplate("hello"),
+        new layDesc.page.PageTemplate("hello"),
     ]
 });
 
 console.log(doc);
 
-const template = new layDesc.PageTemplate("hello");
+const template = new layDesc.page.PageTemplate("hello");
 console.log(template);
 
-const template2 = new layDesc.PageTemplate("hello", {
+const template2 = new layDesc.page.PageTemplate("hello", {
     marginSettings: {
         bottom: 100,
     }
