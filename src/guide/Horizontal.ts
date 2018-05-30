@@ -1,5 +1,6 @@
 export class Horizontal {
-    constructor(public y = 10) {
-
+    constructor(
+        public y = 10
+    ) {
     }
 }

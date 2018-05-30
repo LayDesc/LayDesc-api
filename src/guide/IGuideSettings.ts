@@ -1,8 +1,7 @@
-//GUIDES
 import {Horizontal} from "./Horizontal";
 import {Vertical} from "./Vertical";
 
-export interface IParameters {
+export interface IGuideSettings {
     show: boolean;
     horizontal?: Horizontal[];
     vertical?: Vertical[];

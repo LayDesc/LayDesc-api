@@ -1,12 +1,13 @@
 import {IDocumentSettings} from "./IDocumentSettings";
 import {env} from "../env";
-import {IPageTemplateSettings, PageTemplate} from "../page/PageTemplate";
-import {IParameters} from "../guide/IParameters";
+import {PageTemplate} from "../page/PageTemplate";
+import {IPageSettings} from "../page/IPageSettings";
+import {IGuideSettings} from "../guide/IGuideSettings";
 
 export class Document {
     public guides = Document.defaultSettings.guides;
 
-    public pageTemplates: { [key: string]: IPageTemplateSettings | PageTemplate } = {};
+    public pageTemplates: { [key: string]: IPageSettings | PageTemplate } = {};
 
     public static get defaultSettings() {
         return this._defaultSettings;
@@ -18,7 +19,7 @@ export class Document {
             horizontal: [],
             vertical: [],
         },
-    } as { guides: IParameters };
+    } as { guides: IGuideSettings };
 
     constructor(documentSettings: IDocumentSettings = Document.defaultSettings) {
         this.guides = documentSettings.guides ? documentSettings.guides : this.guides;
@@ -29,11 +30,11 @@ export class Document {
             }
         }
 
-        env.helloMessage();
+        env._private._helloMessage();
     }
 
-    public addPageTemplate(pageTemplate: IPageTemplateSettings | PageTemplate) {
-        if (env.DEBUG) {
+    public addPageTemplate(pageTemplate: IPageSettings | PageTemplate) {
+        if (env.parameters.DEBUG) {
             if (pageTemplate.name in this.pageTemplates) console.info(`${pageTemplate.name} already exists in the names the registered template list. The last ${pageTemplate.name} addition removes the previous one.`);
         }
         if (pageTemplate instanceof PageTemplate) {
@@ -42,4 +43,14 @@ export class Document {
             this.pageTemplates[pageTemplate.name] = new PageTemplate(pageTemplate.name, pageTemplate);
         }
     }
+
+    public generate() {
+
+    }
 }
+
+// interface IDocument {
+//     settings: {
+//         guides:
+//     }
+// }

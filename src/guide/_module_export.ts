@@ -1,3 +1,4 @@
-export {Vertical} from "./Vertical"
 export {Horizontal} from "./Horizontal"
-export {IParameters} from "./IParameters"
+export {IGuideData} from "./IGuideData"
+export {IGuideSettings} from "./IGuideSettings"
+export {Vertical} from "./Vertical"

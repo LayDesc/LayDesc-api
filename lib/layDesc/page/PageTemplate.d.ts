@@ -1,13 +1,8 @@
-import { IMarginSettings, Margin } from "./Margin";
-export interface IPageTemplateSettings_optional {
-    marginSettings?: IMarginSettings;
-}
-export interface IPageTemplateSettings extends IPageTemplateSettings_optional {
-    name: string;
-}
+import { PageMargin } from "./PageMargin";
+import { IPageTemplateSettings_optional } from "./IPageSettings";
 export declare class PageTemplate {
     name: string;
-    margin: Margin;
+    margin: PageMargin;
     static readonly defaultSettings: IPageTemplateSettings_optional;
     private static _defaultSettings;
     constructor(name: string, settings?: IPageTemplateSettings_optional);

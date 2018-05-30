@@ -1,15 +1,17 @@
 import { IDocumentSettings } from "./IDocumentSettings";
-import { IPageTemplateSettings, PageTemplate } from "../page/PageTemplate";
-import { IParameters } from "../guide/IParameters";
+import { PageTemplate } from "../page/PageTemplate";
+import { IPageSettings } from "../page/IPageSettings";
+import { IGuideSettings } from "../guide/IGuideSettings";
 export declare class Document {
-    guides: IParameters;
+    guides: IGuideSettings;
     pageTemplates: {
-        [key: string]: IPageTemplateSettings | PageTemplate;
+        [key: string]: IPageSettings | PageTemplate;
     };
     static readonly defaultSettings: {
-        guides: IParameters;
+        guides: IGuideSettings;
     };
     private static _defaultSettings;
     constructor(documentSettings?: IDocumentSettings);
-    addPageTemplate(pageTemplate: IPageTemplateSettings | PageTemplate): void;
+    addPageTemplate(pageTemplate: IPageSettings | PageTemplate): void;
+    generate(): void;
 }

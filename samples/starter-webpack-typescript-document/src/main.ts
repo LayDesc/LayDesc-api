@@ -1,6 +1,6 @@
 import * as layDesc from "../../../src/main";
 
-layDesc.env.DEBUG = true;
+layDesc.env.parameters.DEBUG = true;
 
 console.log(layDesc);
 
