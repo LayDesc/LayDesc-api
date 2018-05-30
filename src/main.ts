@@ -1,12 +1,6 @@
+import * as document from "./document/_module_export"
+import * as guide from "./guide/_module_export"
+import * as page from "./page/_module_export"
 
-export {IDocumentSettings} from "./document/IDocumentSettings"
-export {Document} from "./document/Document"
-
-export {IParameters} from "./guide/IParameters"
-export {Horizontal} from "./guide/Horizontal"
-export {Vertical} from "./guide/Vertical"
-
-export {IMarginSettings, Margin} from "./page/Margin"
-export {IPageTemplateSettings, IPageTemplateSettings_optional, PageTemplate} from "./page/PageTemplate"
-
+export {document, guide, page}
 export {env} from "./env"

@@ -1,3 +1,3 @@
-export {Document} from "Document";
-export {IDocumentSettings} from "IDocumentSettings";
+export {Document} from "./Document";
+export {IDocumentSettings} from "./IDocumentSettings";
 
