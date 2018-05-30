@@ -1,2 +1,7 @@
 .idea/
 node_modules/
+dist/
+
+samples/simple-document-webpack/
+samples/simple-javascript/
+samples/electron-application/
