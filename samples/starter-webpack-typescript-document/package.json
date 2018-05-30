@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "empty initial LayDesc project work with typescript and webpack",
   "main": "src/main.ts",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack",
+    "start-dev": "webpack-dev-server",
+    "clean": "rm -rf ./dist"
+  },
   "repository": {
     "type": "git",
     "url": "empty"

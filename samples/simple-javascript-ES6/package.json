@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "empty initial LayDesc project work with ES6 target ES6 (modern browser -> babel isn't use) and webpack",
   "main": "src/main.js",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack",
+    "start-dev": "webpack-dev-server",
+    "clean": "rm -rf ./dist"
+  },
   "keywords": [
     "ES6",
     "LayDesc",
