@@ -1,0 +1,28 @@
+{
+  "name": "simple-javascript-es6",
+  "version": "1.0.0",
+  "description": "empty initial LayDesc project work with ES6 target ES6 (modern browser -> babel isn't use) and webpack",
+  "main": "src/main.js",
+  "scripts": {},
+  "keywords": [
+    "ES6",
+    "LayDesc",
+    "api",
+    "webpack",
+    "layout",
+    "print",
+    "pdf"
+  ],
+  "author": "nicolas baldran",
+  "license": "MIT",
+  "devDependencies": {
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4"
+  }
+}

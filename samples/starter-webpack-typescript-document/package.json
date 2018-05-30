@@ -1,0 +1,32 @@
+{
+  "name": "starter-webpack-typescript-document",
+  "version": "1.0.0",
+  "description": "empty initial LayDesc project work with typescript and webpack",
+  "main": "src/main.ts",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "empty"
+  },
+  "keywords": [
+    "typescript",
+    "LayDesc",
+    "api",
+    "webpack",
+    "layout",
+    "print",
+    "pdf"
+  ],
+  "author": "nicolas baldran",
+  "license": "MIT",
+  "devDependencies": {
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
+  }
+}
