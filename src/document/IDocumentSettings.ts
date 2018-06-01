@@ -1,9 +1,8 @@
-import {PageTemplate} from "../page/PageTemplate";
+import {PageTemplate_ObjectOrSettings} from "../page/pageTemplate/PageTemplate";
 import {IGuideSettings} from "../guide/IGuideSettings";
-import {IPageSettings} from "../page/IPageSettings";
 
 export interface IDocumentSettings {
     guides?: IGuideSettings;
     //todo ne pas laisser le choix entre IPageSettings[] | PageTemplate[] car ca gene la completion
-    pageTemplates?: IPageSettings[] | PageTemplate[];
+    pageTemplates?: PageTemplate_ObjectOrSettings[];
 }

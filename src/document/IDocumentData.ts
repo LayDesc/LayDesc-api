@@ -1,7 +1,11 @@
 import {IGuideData} from "../guide/IGuideData";
-import {PageTemplate} from "../page/PageTemplate";
+import {IPageTemplateData} from "../page/pageTemplate/IPageTemplateData";
 
 export interface IDocumentData {
     guides: IGuideData;
-    pageTemplates: PageTemplate[];
+    pageTemplates: IPageTemplates;
+}
+
+export interface IPageTemplates {
+    [key: string]: IPageTemplateData;
 }
