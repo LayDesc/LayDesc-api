@@ -1,4 +1,6 @@
-export { IPageData, IPageMarginData } from "./IPageData";
-export { IPageTemplateSettings_optional, IPageSettings, IPageMarginSettings } from "IPageSettings";
-export { PageMargin } from "./PageMargin";
-export { PageTemplate } from "./PageTemplate";
+export { IPageData } from "./page/IPageData";
+export { IPageSettings } from "./page/IPageSettings";
+export { Page, Page_ObjectOrSettings } from "./page/Page";
+export { IPageTemplateData } from "./pageTemplate/IPageTemplateData";
+export { IPageTemplateSettings } from "./pageTemplate/IPageTemplateSettings";
+export { PageTemplate, PageTemplate_ObjectOrSettings } from "./pageTemplate/PageTemplate";

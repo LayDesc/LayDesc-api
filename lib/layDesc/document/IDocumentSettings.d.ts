@@ -1,7 +1,6 @@
-import { PageTemplate } from "../page/PageTemplate";
+import { PageTemplate_ObjectOrSettings } from "../page/pageTemplate/PageTemplate";
 import { IGuideSettings } from "../guide/IGuideSettings";
-import { IPageSettings } from "../page/IPageSettings";
 export interface IDocumentSettings {
     guides?: IGuideSettings;
-    pageTemplates?: IPageSettings[] | PageTemplate[];
+    pageTemplates?: PageTemplate_ObjectOrSettings[];
 }
