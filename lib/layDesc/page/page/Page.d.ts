@@ -1,6 +1,6 @@
 import { PageTemplate } from "../pageTemplate/PageTemplate";
-import { IPageSettings } from "./IPageSettings";
-export declare type Page_ObjectOrSettings = Page | IPageSettings;
+import { IPageTemplateSettings } from "../pageTemplate/IPageTemplateSettings";
 export declare class Page extends PageTemplate {
-    super(): void;
+    constructor(settings: IPageTemplateSettings);
+    autoContent(): Promise<void>;
 }

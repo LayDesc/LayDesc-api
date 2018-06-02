@@ -1,13 +1,16 @@
 import { IDocumentSettings } from "./IDocumentSettings";
-import { PageTemplate_ObjectOrSettings } from "../page/pageTemplate/PageTemplate";
-import { IDocumentData, IPageTemplates } from "./IDocumentData";
+import { IDocumentData, IListOfPageTemplate } from "./IDocumentData";
 import { IGuideData } from "../guide/IGuideData";
-export declare type Document_ObjectOrSettings = Document | IDocumentSettings;
+import { Page } from "../page/page/Page";
+import { IPageTemplateSettings } from "../page/pageTemplate/IPageTemplateSettings";
+import { IPageSettings } from "../page/page/IPageSettings";
 export declare class Document implements IDocumentData {
     guides: IGuideData;
-    pageTemplates: IPageTemplates;
+    listOfPageTemplate: IListOfPageTemplate;
+    arrayOfPage: Page[];
     private static _defaultSettings;
     constructor(settings?: IDocumentSettings);
-    addPageTemplate(pageTemplate: PageTemplate_ObjectOrSettings): void;
+    addPageTemplate(pageTemplate: IPageTemplateSettings): void;
+    addPage(page: IPageSettings): void;
     generate(): void;
 }

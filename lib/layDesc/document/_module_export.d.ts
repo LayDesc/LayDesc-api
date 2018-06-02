@@ -1,3 +1,3 @@
-export { Document, Document_ObjectOrSettings } from "./Document";
-export { IDocumentData } from "./IDocumentData";
+export { Document } from "./Document";
+export { IDocumentData, IListOfPageTemplate } from "./IDocumentData";
 export { IDocumentSettings } from "./IDocumentSettings";

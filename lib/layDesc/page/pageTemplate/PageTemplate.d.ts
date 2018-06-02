@@ -1,13 +1,14 @@
 import { Margin } from "../../elements/margin/Margin";
 import { IPageTemplateSettings } from "./IPageTemplateSettings";
 import { IPageTemplateData } from "./IPageTemplateData";
-import { RectangleContainer, RectangleContainer_ObjectOrSettings } from "../../elements/rectangleContainer/RectangleContainer";
-export declare type PageTemplate_ObjectOrSettings = PageTemplate | IPageTemplateSettings;
-export declare class PageTemplate implements IPageTemplateData {
+import { RectangleContainer } from "../../elements/rectangleContainer/RectangleContainer";
+import { DocumentChildren } from "../../document/DocumentChildren";
+import { IRectangleContainerSettings } from "../../elements/rectangleContainer/IRectangleContainerSettings";
+export declare class PageTemplate extends DocumentChildren implements IPageTemplateData {
     margin: Margin;
     containers: RectangleContainer[];
     name: string;
     private static _defaultSettings;
     constructor(settings: IPageTemplateSettings);
-    addListOfContainers(containers: RectangleContainer_ObjectOrSettings[]): RectangleContainer[];
+    addArrayOfContainers(containers: IRectangleContainerSettings[]): RectangleContainer[];
 }

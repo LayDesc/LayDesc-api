@@ -1,4 +1,5 @@
 import * as LayDesc from "./main"
+import {Unit} from "./elements/Unit";
 
 const doc: LayDesc.document.IDocumentData = {
     guides: {
@@ -27,7 +28,7 @@ const doc: LayDesc.document.IDocumentData = {
             }
         ],
     },
-    pageTemplates: {
+    listOfPageTemplate: {
         "hello": {
             name: "hello",
             margin: {
@@ -39,6 +40,18 @@ const doc: LayDesc.document.IDocumentData = {
             },
             containers: [],
         }
-    }
-
+    },
+    arrayOfPage: [
+        {
+            name: "page",
+            containers: [],
+            margin: {
+                unit: Unit.MM,
+                right: 10,
+                top: 10,
+                bottom: 10,
+                left: 10,
+            }
+        }
+    ]
 };

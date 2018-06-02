@@ -2,8 +2,6 @@ import {IMarginSettings} from "./IMarginSettings";
 import {IMarginData} from "./IMarginData";
 import {Unit} from "../Unit";
 
-export type Margin_ObjectOrSettings = Margin | IMarginSettings;
-
 export class Margin implements IMarginData {
     public top: number;
     public right: number;

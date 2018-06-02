@@ -4,8 +4,6 @@ export declare module env {
         let DEBUG: boolean;
         let GENERATE_IN_EXTERNAL_WINDOW: boolean;
     }
-    module _private {
-        const _DEBUG: boolean;
-        function _helloMessage(): void;
-    }
+    const _DEBUG: boolean;
+    function _helloMessage(): void;
 }

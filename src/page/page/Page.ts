@@ -1,10 +1,13 @@
 import {PageTemplate} from "../pageTemplate/PageTemplate";
-import {IPageSettings} from "./IPageSettings";
-
-export type Page_ObjectOrSettings = Page | IPageSettings;
+import {IPageTemplateSettings} from "../pageTemplate/IPageTemplateSettings";
 
 export class Page extends PageTemplate {
-    super() {
+    constructor(settings: IPageTemplateSettings) {
+        if ((settings as PageTemplate) instanceof Page ) return (settings as Page);
+        super(settings);
+    }
+
+    async autoContent() {
 
     }
 }

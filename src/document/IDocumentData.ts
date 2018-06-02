@@ -1,11 +1,13 @@
 import {IGuideData} from "../guide/IGuideData";
 import {IPageTemplateData} from "../page/pageTemplate/IPageTemplateData";
+import {IPageData} from "../page/page/IPageData";
 
 export interface IDocumentData {
     guides: IGuideData;
-    pageTemplates: IPageTemplates;
+    listOfPageTemplate: IListOfPageTemplate;
+    arrayOfPage: IPageData[];
 }
 
-export interface IPageTemplates {
+export interface IListOfPageTemplate {
     [key: string]: IPageTemplateData;
 }

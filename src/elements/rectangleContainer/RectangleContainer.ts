@@ -3,8 +3,6 @@ import {IRectangleContainerData} from "./IRectangleContainerData";
 import {IMarginData} from "../margin/IMarginData";
 import {Margin} from "../margin/Margin";
 
-export type RectangleContainer_ObjectOrSettings = IRectangleContainerSettings | RectangleContainer;
-
 export class RectangleContainer implements IRectangleContainerData {
     public width: number;
     height: number;
@@ -20,5 +18,7 @@ export class RectangleContainer implements IRectangleContainerData {
         this.width  = (settings.width === void 0)  ? RectangleContainer._defaultSettings.width  : settings.width;
         this.height = (settings.height === void 0) ? RectangleContainer._defaultSettings.height : settings.height;
         this.margin = new Margin(settings.margin);
+
+        if (settings instanceof RectangleContainer) return (settings as RectangleContainer);
     }
 }

@@ -1,14 +1,11 @@
 import {Margin} from "../../elements/margin/Margin";
 import {IPageTemplateSettings} from "./IPageTemplateSettings";
 import {IPageTemplateData} from "./IPageTemplateData";
-import {
-    RectangleContainer,
-    RectangleContainer_ObjectOrSettings
-} from "../../elements/rectangleContainer/RectangleContainer";
+import {RectangleContainer} from "../../elements/rectangleContainer/RectangleContainer";
+import {DocumentChildren} from "../../document/DocumentChildren";
+import {IRectangleContainerSettings} from "../../elements/rectangleContainer/IRectangleContainerSettings";
 
-export type PageTemplate_ObjectOrSettings = PageTemplate | IPageTemplateSettings;
-
-export class PageTemplate implements IPageTemplateData {
+export class PageTemplate extends DocumentChildren implements IPageTemplateData {
     public margin: Margin;
     public containers: RectangleContainer[];
     public name: string;
@@ -20,13 +17,16 @@ export class PageTemplate implements IPageTemplateData {
     constructor (
         settings: IPageTemplateSettings,
     ) {
+        super();
         this.name = settings.name;
         this.margin = new Margin(settings.margin);
-        this.containers = (settings.containers === void 0) ? PageTemplate._defaultSettings.containers : this.addListOfContainers(settings.containers);
+        this.containers = (settings.containers === void 0) ? PageTemplate._defaultSettings.containers : this.addArrayOfContainers(settings.containers);
+
+        if ( (settings as PageTemplate) instanceof PageTemplate) return (settings as PageTemplate);
     }
 
-    addListOfContainers(containers: RectangleContainer_ObjectOrSettings[]) {
-        const newListOfContainers: RectangleContainer[] = [];
+    addArrayOfContainers(containers: IRectangleContainerSettings[]) {
+        const newArrayOfContainers: RectangleContainer[] = [];
 
         for(const container of containers) {
             let newContainerToAdd: RectangleContainer;
@@ -38,8 +38,8 @@ export class PageTemplate implements IPageTemplateData {
                 newContainerToAdd = new RectangleContainer(container);
                 this.containers.push(newContainerToAdd);
             }
-            newListOfContainers.push(newContainerToAdd);
+            newArrayOfContainers.push(newContainerToAdd);
         }
-        return newListOfContainers;
+        return newArrayOfContainers;
     }
 }

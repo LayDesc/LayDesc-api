@@ -1,14 +1,17 @@
 import {IDocumentSettings} from "./IDocumentSettings";
 import {env} from "../env";
-import {PageTemplate, PageTemplate_ObjectOrSettings} from "../page/pageTemplate/PageTemplate";
-import {IDocumentData, IPageTemplates} from "./IDocumentData";
+import {PageTemplate} from "../page/pageTemplate/PageTemplate";
+import {IDocumentData, IListOfPageTemplate} from "./IDocumentData";
 import {IGuideData} from "../guide/IGuideData";
-
-export type Document_ObjectOrSettings =  Document | IDocumentSettings;
+import {Page} from "../page/page/Page";
+import {IPageTemplateSettings} from "../page/pageTemplate/IPageTemplateSettings";
+import {IPageSettings} from "../page/page/IPageSettings";
+import {RectangleContainer} from "../elements/rectangleContainer/RectangleContainer";
 
 export class Document implements IDocumentData {
     public guides: IGuideData;
-    public pageTemplates: IPageTemplates;
+    public listOfPageTemplate: IListOfPageTemplate;
+    public arrayOfPage: Page[];
 
     private static _defaultSettings = {
         guides: {
@@ -17,6 +20,7 @@ export class Document implements IDocumentData {
             vertical: [],
         },
         pageTemplates: {},
+        arrayOfPage: [],
     };
 
     constructor(settings: IDocumentSettings = {}) {
@@ -33,32 +37,36 @@ export class Document implements IDocumentData {
             this.guides = Document._defaultSettings.guides;
         }
 
-        this.pageTemplates = {};
+        this.listOfPageTemplate = Document._defaultSettings.pageTemplates;
         if (settings.pageTemplates !== void 0) {
-            for (let iterator in settings.pageTemplates) {
-                this.addPageTemplate(settings.pageTemplates[iterator]);
+            for (const pageTemplate of settings.pageTemplates) {
+                this.addPageTemplate(pageTemplate);
             }
         }
 
-        env._private._helloMessage();
+        this.arrayOfPage = Document._defaultSettings.arrayOfPage;
+        if (settings.arrayOfPage !== void 0) {
+            for(const page of settings.arrayOfPage) {
+                this.addPage(page);
+            }
+        }
     }
 
-    public addPageTemplate(pageTemplate: PageTemplate_ObjectOrSettings) {
+    public addPageTemplate(pageTemplate: IPageTemplateSettings) {
         if (env.parameters.DEBUG) {
-            if (pageTemplate.name in this.pageTemplates) console.info(`${pageTemplate.name} already exists in the names the registered template list. The last ${pageTemplate.name} addition removes the previous one.`);
+            if (pageTemplate.name in this.listOfPageTemplate) console.info(`${pageTemplate.name} already exists in the names the registered template list. The last ${pageTemplate.name} addition removes the previous one.`);
         }
-        if (pageTemplate instanceof PageTemplate) {
-            this.pageTemplates[pageTemplate.name] = pageTemplate;
-        } else {
-            this.pageTemplates[pageTemplate.name] = new PageTemplate({
-                name: pageTemplate.name,
-                margin: pageTemplate.margin,
-                containers: pageTemplate.containers,
-            });
-        }
+        this.listOfPageTemplate[pageTemplate.name] = new PageTemplate(pageTemplate).addDocumentParent(this);
+    }
+
+    public addPage(page: IPageSettings) {
+        this.arrayOfPage.push(new Page(page).addDocumentParent(this));
     }
 
     public generate() {
 
     }
 }
+
+// layDesc initialisation
+env._helloMessage();
