@@ -2,6 +2,8 @@ import * as layDesc from "../../../src/main";
 import {Page} from "../../../src/page/page/Page";
 import {PageTemplate} from "../../../src/page/pageTemplate/PageTemplate";
 
+const logo = require("./LayDesc_icon-600.png");
+
 layDesc.env.parameters.DEBUG = true;
 
 const newPageTest = new Page({
@@ -59,3 +61,18 @@ processArray([1, 2, 3]);
 console.log("done");
 
 const anOtherDoc = new layDesc.document.Document();
+
+const image = new layDesc.elements.Image({
+    url: logo,
+});
+
+const img = document.createElement("img");
+img.src = image.url;
+img.style.top = image.position.y + image.unit;
+img.style.left = image.position.x + image.unit;
+img.style.width = image.size.width + image.unit;
+img.style.width = image.size.height + image.unit;
+
+document.body.appendChild(img);
+
+console.log(image);
