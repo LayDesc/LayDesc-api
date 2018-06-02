@@ -1,6 +1,4 @@
-import {IMarginSettings} from "./IMarginSettings";
-import {IMarginData} from "./IMarginData";
-import {Unit} from "../Unit";
+import {Unit} from "./Unit";
 
 export class Margin implements IMarginData {
     public top: number;
@@ -24,4 +22,20 @@ export class Margin implements IMarginData {
         this.left   = (settings.left === void 0)   ? Margin._defaultSettings.left   : settings.left;
         this.unit   = (settings.unit === void 0)   ? Margin._defaultSettings.unit   : settings.unit;
     }
+}
+
+export interface IMarginSettings {
+    unit?: Unit;
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+}
+
+export interface IMarginData {
+    unit: Unit;
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
 }

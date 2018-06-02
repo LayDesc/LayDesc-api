@@ -1,7 +1,6 @@
-export { IMarginData } from "./margin/IMarginData";
-export { IMarginSettings } from "./margin/IMarginSettings";
-export { Margin } from "./margin/Margin";
+export { IImageData } from "./image/IImageData";
+export { IImageSettings } from "./image/IImageSettings";
+export { Image } from "./image/Image";
 export { IRectangleContainerData } from "./rectangleContainer/IRectangleContainerData";
 export { IRectangleContainerSettings } from "./rectangleContainer/IRectangleContainerSettings";
 export { RectangleContainer } from "./rectangleContainer/RectangleContainer";
-export { Unit } from "./Unit";

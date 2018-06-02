@@ -1,4 +1,4 @@
-import { Margin } from "../../elements/margin/Margin";
+import { Margin } from "../../geometry/generic/Margin";
 import { IPageTemplateSettings } from "./IPageTemplateSettings";
 import { IPageTemplateData } from "./IPageTemplateData";
 import { RectangleContainer } from "../../elements/rectangleContainer/RectangleContainer";

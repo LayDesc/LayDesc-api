@@ -1,4 +1,4 @@
-import {IMarginData} from "../../elements/margin/IMarginData";
+import {IMarginData} from "../../geometry/generic/Margin";
 import {RectangleContainer} from "../../elements/rectangleContainer/RectangleContainer";
 
 export interface IPageTemplateData {

@@ -1,4 +1,4 @@
-import {IMarginSettings} from "../margin/IMarginSettings";
+import {IMarginSettings} from "../../geometry/generic/Margin";
 
 export interface IRectangleContainerSettings {
     width?: number;

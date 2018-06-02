@@ -1,5 +1,5 @@
 import * as LayDesc from "./main"
-import {Unit} from "./elements/Unit";
+import {Unit} from "./geometry/generic/Unit";
 
 const doc: LayDesc.document.IDocumentData = {
     guides: {

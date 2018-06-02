@@ -1,7 +1,7 @@
 import {IRectangleContainerSettings} from "./IRectangleContainerSettings";
 import {IRectangleContainerData} from "./IRectangleContainerData";
-import {IMarginData} from "../margin/IMarginData";
-import {Margin} from "../margin/Margin";
+import {IMarginData} from "../../geometry/generic/Margin";
+import {Margin} from "../../geometry/generic/Margin";
 
 export class RectangleContainer implements IRectangleContainerData {
     public width: number;
