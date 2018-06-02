@@ -1,8 +1,12 @@
 import * as layDesc from "../../../src/main";
+import {Page} from "../../../src/page/page/Page";
+import {PageTemplate} from "../../../src/page/pageTemplate/PageTemplate";
 
 layDesc.env.parameters.DEBUG = true;
 
-console.log(layDesc);
+const newPageTest = new Page({
+    name: "newPageTest",
+});
 
 const doc = new layDesc.document.Document({
     guides: {
@@ -14,29 +18,20 @@ const doc = new layDesc.document.Document({
     pageTemplates: [
         {
             name: "left",
+            margin:{},
         },
-        new layDesc.page.PageTemplate({
-            name: "hello"
+        new PageTemplate({
+            name: "right",
         }),
+    ],
+    arrayOfPage: [
+        newPageTest,
     ]
 });
 
-console.log(doc);
+newPageTest.name = "change";
 
-const template = new layDesc.page.PageTemplate({
-    name: "hello",
-});
-console.log(template);
-
-const template2 = new layDesc.page.PageTemplate({
-    name: "hello",
-    margin: {
-        bottom: 100,
-    }
-});
-console.log(template2);
-
-
+console.log("...", newPageTest, doc, "...");
 
 // delay
 function delay() {
@@ -62,3 +57,5 @@ async function processArray(array: any[]) {
 
 processArray([1, 2, 3]);
 console.log("done");
+
+const anOtherDoc = new layDesc.document.Document();
