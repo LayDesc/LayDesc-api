@@ -6,7 +6,7 @@ import {IGuideData} from "../guide/IGuideData";
 import {Page} from "../page/page/Page";
 import {IPageTemplateSettings} from "../page/pageTemplate/IPageTemplateSettings";
 import {IPageSettings} from "../page/page/IPageSettings";
-import {RectangleContainer} from "../elements/rectangleContainer/RectangleContainer";
+import {RectangleContainer} from "../geometry/rectangleContainer/RectangleContainer";
 
 export class Document implements IDocumentData {
     public guides: IGuideData;

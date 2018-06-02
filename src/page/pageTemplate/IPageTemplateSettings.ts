@@ -1,5 +1,5 @@
 import {IMarginSettings} from "../../geometry/generic/Margin";
-import {IRectangleContainerSettings} from "../../elements/rectangleContainer/IRectangleContainerSettings";
+import {IRectangleContainerSettings} from "../../geometry/rectangleContainer/IRectangleContainerSettings";
 
 export interface IPageTemplateSettings {
     name: string;

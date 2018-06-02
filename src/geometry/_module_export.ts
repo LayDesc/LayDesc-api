@@ -8,3 +8,7 @@ export {Unit} from "./generic/Unit"
 export {Rectangle} from "./rectangle/Rectangle"
 export {IRectangleData} from "./rectangle/IRectangleData"
 export {IRectangleSettings} from "./rectangle/IRectangleSettings"
+
+export {IRectangleContainerData} from "./rectangleContainer/IRectangleContainerData"
+export {IRectangleContainerSettings} from "./rectangleContainer/IRectangleContainerSettings"
+export {RectangleContainer} from "./rectangleContainer/RectangleContainer"

@@ -1,9 +1,9 @@
 import {Margin} from "../../geometry/generic/Margin";
 import {IPageTemplateSettings} from "./IPageTemplateSettings";
 import {IPageTemplateData} from "./IPageTemplateData";
-import {RectangleContainer} from "../../elements/rectangleContainer/RectangleContainer";
+import {RectangleContainer} from "../../geometry/rectangleContainer/RectangleContainer";
 import {DocumentChildren} from "../../document/DocumentChildren";
-import {IRectangleContainerSettings} from "../../elements/rectangleContainer/IRectangleContainerSettings";
+import {IRectangleContainerSettings} from "../../geometry/rectangleContainer/IRectangleContainerSettings";
 
 export class PageTemplate extends DocumentChildren implements IPageTemplateData {
     public margin: Margin;

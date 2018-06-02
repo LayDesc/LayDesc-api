@@ -1,5 +1,4 @@
-import {IMarginData} from "../../geometry/generic/Margin";
-
+import { IMarginData } from "../generic/Margin";
 export interface IRectangleContainerData {
     width: number;
     height: number;
