@@ -7,6 +7,7 @@ import {Page} from "../page/page/Page";
 import {IPageTemplateSettings} from "../page/pageTemplate/IPageTemplateSettings";
 import {IPageSettings} from "../page/page/IPageSettings";
 import {RectangleContainer} from "../geometry/rectangleContainer/RectangleContainer";
+import {IPageData} from "../page/page/IPageData";
 
 export class Document implements IDocumentData {
     public guides: IGuideData;
@@ -56,16 +57,32 @@ export class Document implements IDocumentData {
         if (env.parameters.DEBUG) {
             if (pageTemplate.name in this.listOfPageTemplate) console.info(`${pageTemplate.name} already exists in the names the registered template list. The last ${pageTemplate.name} addition removes the previous one.`);
         }
-        this.listOfPageTemplate[pageTemplate.name] = new PageTemplate(pageTemplate).addDocumentParent(this);
+
+        type PageTemplateDocumentChild = DocumentChild & PageTemplate;
+        const newPageTemplate: PageTemplateDocumentChild = new PageTemplate(pageTemplate);
+        newPageTemplate.addDocumentParent = addDocumentParent;
+        this.listOfPageTemplate[pageTemplate.name] = newPageTemplate.addDocumentParent(this);
     }
 
     public addPage(page: IPageSettings) {
-        this.arrayOfPage.push(new Page(page).addDocumentParent(this));
+        type PageDocumentChild = DocumentChild & Page;
+        const newPage: PageDocumentChild = new Page(page);
+        newPage.addDocumentParent = addDocumentParent;
+        this.arrayOfPage.push(newPage.addDocumentParent(this));
     }
 
     public generate() {
 
     }
+}
+
+// @todo this: any incorrect
+function addDocumentParent(this: any, documentParent: Document) {
+    this._documentParents.push(documentParent);
+    return this;
+}
+interface DocumentChild {
+    addDocumentParent?: (documentParent: Document) => Page;
 }
 
 // layDesc initialisation

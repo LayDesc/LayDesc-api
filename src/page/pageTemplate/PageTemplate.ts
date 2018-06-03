@@ -2,13 +2,19 @@ import {Margin} from "../../geometry/generic/Margin";
 import {IPageTemplateSettings} from "./IPageTemplateSettings";
 import {IPageTemplateData} from "./IPageTemplateData";
 import {RectangleContainer} from "../../geometry/rectangleContainer/RectangleContainer";
-import {DocumentChildren} from "../../document/DocumentChildren";
 import {IRectangleContainerSettings} from "../../geometry/rectangleContainer/IRectangleContainerSettings";
+import {Document} from "../../document/Document";
 
-export class PageTemplate extends DocumentChildren implements IPageTemplateData {
+export class PageTemplate implements IPageTemplateData {
     public margin: Margin;
     public containers: RectangleContainer[];
     public name: string;
+
+    public get documentParents() {
+        return this._documentParents;
+    }
+
+    private _documentParents: Document[] = [];
 
     private static _defaultSettings = {
         containers: [],
@@ -17,7 +23,6 @@ export class PageTemplate extends DocumentChildren implements IPageTemplateData 
     constructor (
         settings: IPageTemplateSettings,
     ) {
-        super();
         this.name = settings.name;
         this.margin = new Margin(settings.margin);
         this.containers = (settings.containers === void 0) ? PageTemplate._defaultSettings.containers : this.addArrayOfContainers(settings.containers);

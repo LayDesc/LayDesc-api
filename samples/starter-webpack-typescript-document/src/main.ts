@@ -78,23 +78,6 @@ document.body.appendChild(img);
 console.log(image);
 
 const page = new Page({name:""});
-page.addDocumentParent(doc);
+// page.addDocumentParent(doc); <-- must be breaking
 
-
-class BaseClass {
-    constructor() {
-    }
-
-    private addChild() {
-        this.addChild();
-    }
-}
-
-class ChildClass extends BaseClass {
-    private hello() {console.log("hello");}
-
-    constructor() {
-        super();
-        const ctor = this.constructor as typeof BaseClass;
-    }
-}
+doc.generate();
