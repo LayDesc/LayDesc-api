@@ -76,3 +76,25 @@ img.style.width = image.size.height + image.unit;
 document.body.appendChild(img);
 
 console.log(image);
+
+const page = new Page({name:""});
+page.addDocumentParent(doc);
+
+
+class BaseClass {
+    constructor() {
+    }
+
+    private addChild() {
+        this.addChild();
+    }
+}
+
+class ChildClass extends BaseClass {
+    private hello() {console.log("hello");}
+
+    constructor() {
+        super();
+        const ctor = this.constructor as typeof BaseClass;
+    }
+}

@@ -1,7 +1,6 @@
 import {IMarginSettings} from "../generic/Margin";
+import {IRectangleSettings} from "../generic/Rectangle";
 
-export interface IRectangleContainerSettings {
-    width?: number;
-    height?: number;
+export interface IRectangleContainerSettings extends IRectangleSettings {
     margin?: IMarginSettings;
 }

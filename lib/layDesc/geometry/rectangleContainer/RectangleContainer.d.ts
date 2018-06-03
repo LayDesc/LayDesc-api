@@ -1,10 +1,8 @@
 import { IRectangleContainerSettings } from "./IRectangleContainerSettings";
 import { IRectangleContainerData } from "./IRectangleContainerData";
 import { IMarginData } from "../generic/Margin";
-export declare class RectangleContainer implements IRectangleContainerData {
-    width: number;
-    height: number;
+import { Rectangle } from "../generic/Rectangle";
+export declare class RectangleContainer extends Rectangle implements IRectangleContainerData {
     margin: IMarginData;
-    private static _defaultSettings;
     constructor(settings?: IRectangleContainerSettings);
 }

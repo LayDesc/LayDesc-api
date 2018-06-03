@@ -1,6 +1,9 @@
 import { PageTemplate } from "../pageTemplate/PageTemplate";
-import { IPageTemplateSettings } from "../pageTemplate/IPageTemplateSettings";
-export declare class Page extends PageTemplate {
-    constructor(settings: IPageTemplateSettings);
+import { IPageData } from "./IPageData";
+import { IPageTemplateData } from "../pageTemplate/IPageTemplateData";
+import { IPageSettings } from "./IPageSettings";
+export declare class Page extends PageTemplate implements IPageData {
+    pageTemplate?: IPageTemplateData;
+    constructor(settings: IPageSettings);
     autoContent(): Promise<void>;
 }

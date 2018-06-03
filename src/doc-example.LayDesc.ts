@@ -36,7 +36,7 @@ const doc: LayDesc.document.IDocumentData = {
                 left: 10,
                 right: 10,
                 top: 10,
-                unit: LayDesc.elements.Unit.MM
+                unit: LayDesc.geometry.Unit.MM
             },
             containers: [],
         }

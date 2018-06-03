@@ -1,7 +1,7 @@
 import { IImageSettings } from "./IImageSettings";
 import { IImageData } from "./IImageData";
-import { Generic } from "../../geometry/generic/Generic";
-export declare class Image extends Generic implements IImageData {
+import { Rectangle } from "../../geometry/generic/Rectangle";
+export declare class Image extends Rectangle implements IImageData {
     url: string;
     constructor(settings: IImageSettings);
 }

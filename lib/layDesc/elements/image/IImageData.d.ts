@@ -1,4 +1,4 @@
-import { IGenericData } from "../../geometry/generic/Generic";
-export interface IImageData extends IGenericData {
+import { IRectangleData } from "../../geometry/generic/Rectangle";
+export interface IImageData extends IRectangleData {
     url: string;
 }

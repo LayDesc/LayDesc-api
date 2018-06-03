@@ -1,5 +1,5 @@
-import {IGenericData} from "../../geometry/generic/Generic";
+import {IRectangleData} from "../../geometry/generic/Rectangle";
 
-export interface IImageData extends IGenericData {
+export interface IImageData extends IRectangleData {
     url: string;
 }

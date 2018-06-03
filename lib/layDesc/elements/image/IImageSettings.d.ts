@@ -1,4 +1,4 @@
-import { IGenericSettings } from "../../geometry/generic/Generic";
-export interface IImageSettings extends IGenericSettings {
+import { IRectangleSettings } from "../../geometry/generic/Rectangle";
+export interface IImageSettings extends IRectangleSettings {
     url: string;
 }

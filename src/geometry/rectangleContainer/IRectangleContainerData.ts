@@ -1,7 +1,6 @@
 import {IMarginData} from "../generic/Margin";
+import {IRectangleData} from "../generic/Rectangle";
 
-export interface IRectangleContainerData {
-    width: number;
-    height: number;
+export interface IRectangleContainerData extends IRectangleData {
     margin: IMarginData;
 }
