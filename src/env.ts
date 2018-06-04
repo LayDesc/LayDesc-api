@@ -8,7 +8,14 @@ export module env {
         export let GENERATE_IN_EXTERNAL_WINDOW = true;
     }
 
+    /**
+     * @hidden
+     */
     export const _DEBUG = true;
+
+    /**
+     * @hidden
+     */
     export function _helloMessage() {
         const styles = [
             'color: blue',

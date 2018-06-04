@@ -120,7 +120,10 @@ export class Document implements IDocumentData {
 }
 
 
-// @todo this: any incorrect
+// @todo this: any ?
+/**
+ * @hidden
+ */
 function addDocumentParent(this: any, documentParent: Document) {
     this._documentParents.push(documentParent);
     return this;
