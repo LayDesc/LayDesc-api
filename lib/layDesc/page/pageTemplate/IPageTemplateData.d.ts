@@ -1,7 +1,7 @@
 import { IMarginData } from "../../geometry/generic/Margin";
-import { RectangleContainer } from "../../geometry/rectangleContainer/RectangleContainer";
+import { IRectangleContainerData } from "../../geometry/rectangleContainer/IRectangleContainerData";
 export interface IPageTemplateData {
     name: string;
     margin: IMarginData;
-    containers: RectangleContainer[];
+    containers: IRectangleContainerData[];
 }

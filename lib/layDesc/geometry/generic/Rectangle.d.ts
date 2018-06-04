@@ -1,24 +1,25 @@
 import { IPositionData, IPositionSettings, Position } from "./Position";
 import { ISizeData, ISizeSettings, Size } from "./Size";
-import { Unit } from "./Unit";
-import { Anchor } from "./Anchor";
+import { UNIT } from "./UNIT";
+import { ANCHOR } from "./ANCHOR";
 export declare class Rectangle implements IRectangleData {
-    anchor: Anchor;
+    anchor: ANCHOR;
     position: Position;
     size: Size;
-    unit: Unit;
+    unit: UNIT;
     private static _defaultSettings;
     constructor(settings?: IRectangleSettings);
+    generate(): IRectangleData;
 }
 export interface IRectangleSettings {
-    anchor?: Anchor;
+    anchor?: ANCHOR;
     position?: IPositionSettings;
     size?: ISizeSettings;
-    unit?: Unit;
+    unit?: UNIT;
 }
 export interface IRectangleData {
-    anchor: Anchor;
+    anchor: ANCHOR;
     position: IPositionData;
     size: ISizeData;
-    unit: Unit;
+    unit: UNIT;
 }

@@ -3,6 +3,7 @@ export declare class Size implements ISizeData {
     height: number;
     private static _defaultSettings;
     constructor(settings?: ISizeSettings);
+    generate(): ISizeData;
 }
 export interface ISizeSettings {
     width?: number;

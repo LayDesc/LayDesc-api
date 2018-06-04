@@ -9,4 +9,14 @@ export class Image extends Rectangle implements IImageData {
         super(settings);
         this.url = settings.url;
     }
+
+    generate(): IImageData {
+        return {
+            anchor: this.anchor,
+            position: this.position.generate(),
+            size: this.size.generate(),
+            unit: this.unit,
+            url: this.url,
+        }
+    }
 }

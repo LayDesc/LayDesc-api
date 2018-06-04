@@ -12,5 +12,6 @@ export declare class Document implements IDocumentData {
     constructor(settings?: IDocumentSettings);
     addPageTemplate(pageTemplate: IPageTemplateSettings): void;
     addPage(page: IPageSettings): void;
-    generate(): void;
+    generate(): Promise<IDocumentData>;
+    private _createJson();
 }

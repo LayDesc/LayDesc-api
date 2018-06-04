@@ -1,18 +1,18 @@
-import {Unit} from "./Unit";
+import {UNIT} from "./UNIT";
 
 export class Margin implements IMarginData {
     public top: number;
     public right: number;
     public bottom: number;
     public left: number;
-    public unit: Unit;
+    public unit: UNIT;
 
     private static _defaultSettings = {
         top: 10,
         right: 10,
         bottom: 10,
         left: 10,
-        unit: Unit.MM,
+        unit: UNIT.MM,
     };
 
     constructor(settings: IMarginSettings = {}) {
@@ -22,10 +22,20 @@ export class Margin implements IMarginData {
         this.left   = (settings.left === void 0)   ? Margin._defaultSettings.left   : settings.left;
         this.unit   = (settings.unit === void 0)   ? Margin._defaultSettings.unit   : settings.unit;
     }
+
+    generate(): IMarginData {
+        return {
+            top: this.top,
+            right: this.right,
+            bottom: this.bottom,
+            left: this.left,
+            unit: this.unit,
+        }
+    }
 }
 
 export interface IMarginSettings {
-    unit?: Unit;
+    unit?: UNIT;
     top?: number;
     right?: number;
     bottom?: number;
@@ -33,7 +43,7 @@ export interface IMarginSettings {
 }
 
 export interface IMarginData {
-    unit: Unit;
+    unit: UNIT;
     top: number;
     right: number;
     bottom: number;

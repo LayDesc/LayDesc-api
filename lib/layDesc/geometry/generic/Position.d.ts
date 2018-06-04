@@ -3,6 +3,7 @@ export declare class Position implements IPositionData {
     y: number;
     private static _defaultSettings;
     constructor(settings?: IPositionSettings);
+    generate(): IPositionData;
 }
 export interface IPositionSettings {
     x?: number;

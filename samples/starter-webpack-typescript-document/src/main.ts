@@ -7,7 +7,7 @@ const logo = require("./LayDesc_icon-600.png");
 layDesc.env.parameters.DEBUG = true;
 
 const newPageTest = new Page({
-    name: "newPageTest",
+    name: "newPageTest"
 });
 
 const doc = new layDesc.document.Document({
@@ -27,7 +27,7 @@ const doc = new layDesc.document.Document({
         }),
     ],
     arrayOfPage: [
-        newPageTest,
+        newPageTest
     ]
 });
 
@@ -35,7 +35,41 @@ newPageTest.name = "change";
 
 console.log("...", newPageTest, doc, "...");
 
-// delay
+const anOtherDoc = new layDesc.document.Document();
+
+const image = new layDesc.elements.Image({
+    url: logo,
+});
+
+const img = document.createElement("img");
+img.src = image.url;
+img.style.top = image.position.y + image.unit;
+img.style.left = image.position.x + image.unit;
+img.style.width = image.size.width + image.unit;
+img.style.width = image.size.height + image.unit;
+
+document.body.appendChild(img);
+
+console.log(image);
+
+const page = new Page({name:""});
+// page.addDocumentParent(doc); <-- must be breaking
+
+
+/*
+ * async render test
+ */
+async function docBuildAsyncTest() {
+    const test = await doc.generate();
+    console.log("…render ended :", test);
+}
+docBuildAsyncTest();
+console.log("render init…");
+
+
+/*
+ * delay test
+*/
 function delay() {
     return new Promise((resolve: any) => {
         setTimeout(resolve, 300);
@@ -59,25 +93,3 @@ async function processArray(array: any[]) {
 
 processArray([1, 2, 3]);
 console.log("done");
-
-const anOtherDoc = new layDesc.document.Document();
-
-const image = new layDesc.elements.Image({
-    url: logo,
-});
-
-const img = document.createElement("img");
-img.src = image.url;
-img.style.top = image.position.y + image.unit;
-img.style.left = image.position.x + image.unit;
-img.style.width = image.size.width + image.unit;
-img.style.width = image.size.height + image.unit;
-
-document.body.appendChild(img);
-
-console.log(image);
-
-const page = new Page({name:""});
-// page.addDocumentParent(doc); <-- must be breaking
-
-doc.generate();

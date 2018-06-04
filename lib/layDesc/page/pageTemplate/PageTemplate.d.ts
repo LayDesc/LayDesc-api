@@ -13,4 +13,5 @@ export declare class PageTemplate implements IPageTemplateData {
     private static _defaultSettings;
     constructor(settings: IPageTemplateSettings);
     addArrayOfContainers(containers: IRectangleContainerSettings[]): RectangleContainer[];
+    generate(): IPageTemplateData;
 }

@@ -12,6 +12,13 @@ export class Size implements ISizeData {
         this.height = (settings.height === void 0) ? Size._defaultSettings.height : settings.height;
         if (settings instanceof Size ) return (settings as Size);
     }
+
+    generate(): ISizeData {
+        return {
+            width: this.width,
+            height: this.height,
+        }
+    }
 }
 
 export interface ISizeSettings {

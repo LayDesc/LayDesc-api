@@ -1,5 +1,5 @@
 import * as LayDesc from "./main"
-import {Unit} from "./geometry/generic/Unit";
+import {UNIT} from "./geometry/generic/UNIT";
 
 const doc: LayDesc.document.IDocumentData = {
     guides: {
@@ -36,7 +36,7 @@ const doc: LayDesc.document.IDocumentData = {
                 left: 10,
                 right: 10,
                 top: 10,
-                unit: LayDesc.geometry.Unit.MM
+                unit: LayDesc.geometry.UNIT.MM
             },
             containers: [],
         }
@@ -46,7 +46,7 @@ const doc: LayDesc.document.IDocumentData = {
             name: "page",
             containers: [],
             margin: {
-                unit: Unit.MM,
+                unit: UNIT.MM,
                 right: 10,
                 top: 10,
                 bottom: 10,

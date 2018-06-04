@@ -5,3 +5,4 @@ import * as guide from "./guide/_module_export";
 import * as page from "./page/_module_export";
 export { document, elements, geometry, guide, page };
 export { env } from "./env";
+export { loremIpsum } from "./tools/loremIpsum";

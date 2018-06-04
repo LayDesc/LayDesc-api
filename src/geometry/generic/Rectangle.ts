@@ -1,17 +1,17 @@
 import {IPositionData, IPositionSettings, Position} from "./Position";
 import {ISizeData, ISizeSettings, Size} from "./Size";
-import {Unit} from "./Unit";
-import {Anchor} from "./Anchor";
+import {UNIT} from "./UNIT";
+import {ANCHOR} from "./ANCHOR";
 
 export class Rectangle implements IRectangleData {
-    anchor: Anchor;
+    anchor: ANCHOR;
     position: Position;
     size: Size;
-    unit: Unit;
+    unit: UNIT;
 
     private static _defaultSettings = {
-        unit: Unit.MM,
-        anchor: Anchor.TOP_LEFT,
+        unit: UNIT.MM,
+        anchor: ANCHOR.TOP_LEFT,
     };
 
     constructor(settings: IRectangleSettings = {}) {
@@ -20,18 +20,27 @@ export class Rectangle implements IRectangleData {
         this.size = new Size(settings.size);
         this.unit = (settings.unit === void 0) ? Rectangle._defaultSettings.unit : settings.unit;
     }
+
+    generate(): IRectangleData {
+        return {
+            anchor: this.anchor,
+            position: this.position.generate(),
+            size: this.size.generate(),
+            unit: this.unit,
+        }
+    }
 }
 
 export interface IRectangleSettings {
-    anchor?: Anchor;
+    anchor?: ANCHOR;
     position?: IPositionSettings;
     size?: ISizeSettings;
-    unit?: Unit;
+    unit?: UNIT;
 }
 
 export interface IRectangleData {
-    anchor: Anchor
+    anchor: ANCHOR
     position: IPositionData;
     size: ISizeData;
-    unit: Unit;
+    unit: UNIT;
 }

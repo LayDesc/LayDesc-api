@@ -4,6 +4,7 @@ import {IPageTemplateData} from "./IPageTemplateData";
 import {RectangleContainer} from "../../geometry/rectangleContainer/RectangleContainer";
 import {IRectangleContainerSettings} from "../../geometry/rectangleContainer/IRectangleContainerSettings";
 import {Document} from "../../document/Document";
+import {IRectangleContainerData} from "../../geometry/rectangleContainer/IRectangleContainerData";
 
 export class PageTemplate implements IPageTemplateData {
     public margin: Margin;
@@ -46,5 +47,17 @@ export class PageTemplate implements IPageTemplateData {
             newArrayOfContainers.push(newContainerToAdd);
         }
         return newArrayOfContainers;
+    }
+
+    generate(): IPageTemplateData {
+        const containers: IRectangleContainerData[] = [];
+        for(const container of this.containers) {
+            containers.push(container.generate());
+        }
+        return {
+            name: this.name,
+            containers: containers,
+            margin: this.margin.generate(),
+        }
     }
 }

@@ -8,6 +8,8 @@ import {IPageTemplateSettings} from "../page/pageTemplate/IPageTemplateSettings"
 import {IPageSettings} from "../page/page/IPageSettings";
 import {RectangleContainer} from "../geometry/rectangleContainer/RectangleContainer";
 import {IPageData} from "../page/page/IPageData";
+import {Horizontal} from "../guide/Horizontal";
+import {Vertical} from "../guide/Vertical";
 
 export class Document implements IDocumentData {
     public guides: IGuideData;
@@ -71,10 +73,52 @@ export class Document implements IDocumentData {
         this.arrayOfPage.push(newPage.addDocumentParent(this));
     }
 
-    public generate() {
+    public generate(): Promise<IDocumentData> {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(this._createJson());
+            }, 3000)
+        });
+    }
 
+    private _createJson(): IDocumentData {
+        // generate guides
+        const arrayOfHorizontal: Horizontal[] = [];
+        for(const horizontal of this.guides.horizontal) {
+            arrayOfHorizontal.push(
+                {
+                    y: horizontal.y
+                }
+            )
+        }
+        const arrayOfVertical: Vertical[] = [];
+        for(const vertical of this.guides.vertical) {
+            arrayOfVertical.push(
+                {
+                    x: vertical.x
+                }
+            )
+        }
+        let guides: IGuideData = {
+            show: this.guides.show,
+            horizontal: arrayOfHorizontal,
+            vertical: arrayOfVertical,
+        };
+
+        // generate arrayOfPage
+        const arrayOfPage: IPageData[] = [];
+        for(const page of this.arrayOfPage) {
+            arrayOfPage.push(page.generate());
+        }
+
+        return {
+            guides: guides,
+            arrayOfPage: arrayOfPage,
+            listOfPageTemplate: this.listOfPageTemplate,
+        }
     }
 }
+
 
 // @todo this: any incorrect
 function addDocumentParent(this: any, documentParent: Document) {
