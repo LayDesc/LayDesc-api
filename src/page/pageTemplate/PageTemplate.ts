@@ -37,7 +37,7 @@ export class PageTemplate implements IPageTemplateData {
         for(const container of containers) {
             let newContainerToAdd: RectangleContainer;
             //todo test instanceof
-            if (container instanceof RectangleContainer) {
+            if ( (container as RectangleContainer) instanceof RectangleContainer) {
                 newContainerToAdd = container;
                 this.containers.push(newContainerToAdd);
             } else {
