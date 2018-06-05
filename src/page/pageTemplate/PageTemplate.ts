@@ -5,11 +5,13 @@ import {RectangleContainer} from "../../containers/rectangleContainer/RectangleC
 import {IRectangleContainerSettings} from "../../containers/rectangleContainer/IRectangleContainerSettings";
 import {Document} from "../../document/Document";
 import {IRectangleContainerData} from "../../containers/rectangleContainer/IRectangleContainerData";
+import {UNIT} from "../../geometry/generic/UNIT";
 
 export class PageTemplate implements IPageTemplateData {
+    public name: string;
     public margin: Margin;
     public containers: RectangleContainer[];
-    public name: string;
+    public unit: UNIT;
 
     public get documentParents() {
         return this._documentParents;
@@ -19,6 +21,7 @@ export class PageTemplate implements IPageTemplateData {
 
     private static _defaultSettings = {
         containers: [],
+        unit: UNIT.MM,
     };
 
     constructor (
@@ -27,6 +30,7 @@ export class PageTemplate implements IPageTemplateData {
         this.name = settings.name;
         this.margin = new Margin(settings.margin);
         this.containers = (settings.containers === void 0) ? PageTemplate._defaultSettings.containers : this.addArrayOfContainers(settings.containers);
+        this.unit = (settings.unit === void 0) ? PageTemplate._defaultSettings.unit : settings.unit;
 
         if ( (settings as PageTemplate) instanceof PageTemplate) return (settings as PageTemplate);
     }
@@ -38,7 +42,7 @@ export class PageTemplate implements IPageTemplateData {
             let newContainerToAdd: RectangleContainer;
             //todo test instanceof
             if ( (container as RectangleContainer) instanceof RectangleContainer) {
-                newContainerToAdd = container;
+                newContainerToAdd = (container as RectangleContainer);
                 this.containers.push(newContainerToAdd);
             } else {
                 newContainerToAdd = new RectangleContainer(container);
@@ -55,9 +59,10 @@ export class PageTemplate implements IPageTemplateData {
             containers.push(container.generate());
         }
         return {
-            name: this.name,
             containers: containers,
             margin: this.margin.generate(),
+            name: this.name,
+            unit: this.unit,
         }
     }
 }

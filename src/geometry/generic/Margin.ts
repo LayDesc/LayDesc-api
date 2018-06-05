@@ -5,14 +5,12 @@ export class Margin implements IMarginData {
     public right: number;
     public bottom: number;
     public left: number;
-    public unit: UNIT;
 
     private static _defaultSettings = {
         top: 10,
         right: 10,
         bottom: 10,
         left: 10,
-        unit: UNIT.MM,
     };
 
     constructor(settings: IMarginSettings = {}) {
@@ -20,7 +18,6 @@ export class Margin implements IMarginData {
         this.right  = (settings.right === void 0)  ? Margin._defaultSettings.right  : settings.right;
         this.bottom = (settings.bottom === void 0) ? Margin._defaultSettings.bottom : settings.bottom;
         this.left   = (settings.left === void 0)   ? Margin._defaultSettings.left   : settings.left;
-        this.unit   = (settings.unit === void 0)   ? Margin._defaultSettings.unit   : settings.unit;
     }
 
     generate(): IMarginData {
@@ -29,13 +26,11 @@ export class Margin implements IMarginData {
             right: this.right,
             bottom: this.bottom,
             left: this.left,
-            unit: this.unit,
         }
     }
 }
 
 export interface IMarginSettings {
-    unit?: UNIT;
     top?: number;
     right?: number;
     bottom?: number;
@@ -43,7 +38,6 @@ export interface IMarginSettings {
 }
 
 export interface IMarginData {
-    unit: UNIT;
     top: number;
     right: number;
     bottom: number;
