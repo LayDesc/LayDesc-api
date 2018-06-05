@@ -128,6 +128,9 @@ function addDocumentParent(this: any, documentParent: Document) {
     this._documentParents.push(documentParent);
     return this;
 }
+/**
+ * @hidden
+ */
 interface DocumentChild {
     addDocumentParent?: (documentParent: Document) => Page;
 }
