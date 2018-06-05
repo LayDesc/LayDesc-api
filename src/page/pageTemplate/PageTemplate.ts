@@ -1,10 +1,10 @@
 import {Margin} from "../../geometry/generic/Margin";
 import {IPageTemplateSettings} from "./IPageTemplateSettings";
 import {IPageTemplateData} from "./IPageTemplateData";
-import {RectangleContainer} from "../../geometry/rectangleContainer/RectangleContainer";
-import {IRectangleContainerSettings} from "../../geometry/rectangleContainer/IRectangleContainerSettings";
+import {RectangleContainer} from "../../containers/rectangleContainer/RectangleContainer";
+import {IRectangleContainerSettings} from "../../containers/rectangleContainer/IRectangleContainerSettings";
 import {Document} from "../../document/Document";
-import {IRectangleContainerData} from "../../geometry/rectangleContainer/IRectangleContainerData";
+import {IRectangleContainerData} from "../../containers/rectangleContainer/IRectangleContainerData";
 
 export class PageTemplate implements IPageTemplateData {
     public margin: Margin;

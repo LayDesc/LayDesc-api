@@ -6,7 +6,7 @@ import {IGuideData} from "../guide/IGuideData";
 import {Page} from "../page/page/Page";
 import {IPageTemplateSettings} from "../page/pageTemplate/IPageTemplateSettings";
 import {IPageSettings} from "../page/page/IPageSettings";
-import {RectangleContainer} from "../geometry/rectangleContainer/RectangleContainer";
+import {RectangleContainer} from "../containers/rectangleContainer/RectangleContainer";
 import {IPageData} from "../page/page/IPageData";
 import {Horizontal} from "../guide/Horizontal";
 import {Vertical} from "../guide/Vertical";

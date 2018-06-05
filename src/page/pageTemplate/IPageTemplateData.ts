@@ -1,5 +1,5 @@
 import {IMarginData} from "../../geometry/generic/Margin";
-import {IRectangleContainerData} from "../../geometry/rectangleContainer/IRectangleContainerData";
+import {IRectangleContainerData} from "../../containers/rectangleContainer/IRectangleContainerData";
 
 export interface IPageTemplateData {
     name: string;

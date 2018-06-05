@@ -1,7 +1,7 @@
-import {IPositionData, IPositionSettings, Position} from "./Position";
-import {ISizeData, ISizeSettings, Size} from "./Size";
-import {UNIT} from "./UNIT";
-import {ANCHOR} from "./ANCHOR";
+import {IPositionData, IPositionSettings, Position} from "./generic/Position";
+import {ISizeData, ISizeSettings, Size} from "./generic/Size";
+import {UNIT} from "./generic/UNIT";
+import {ANCHOR} from "./generic/ANCHOR";
 
 export class Rectangle implements IRectangleData {
     anchor: ANCHOR;

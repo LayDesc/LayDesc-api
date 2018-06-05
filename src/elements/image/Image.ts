@@ -1,6 +1,6 @@
 import {IImageSettings} from "./IImageSettings";
 import {IImageData} from "./IImageData";
-import {Rectangle} from "../../geometry/generic/Rectangle";
+import {Rectangle} from "../../geometry/Rectangle";
 
 export class Image extends Rectangle implements IImageData {
     url: string;

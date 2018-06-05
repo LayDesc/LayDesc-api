@@ -1,7 +1,7 @@
 import {PageTemplate} from "../pageTemplate/PageTemplate";
 import {IPageData} from "./IPageData";
 import {IPageSettings} from "./IPageSettings";
-import {IRectangleContainerData} from "../../geometry/rectangleContainer/IRectangleContainerData";
+import {IRectangleContainerData} from "../../containers/rectangleContainer/IRectangleContainerData";
 import {loremIpsum} from "../../tools/loremIpsum";
 
 export class Page extends PageTemplate implements IPageData {
