@@ -21,7 +21,7 @@ page.style.borderColor = "black";
 const canvas = document.createElement("canvas") as HTMLCanvasElement;
 const context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-const text = loremIpsum();
+let text = loremIpsum().replace(/-/gm, "–");
 
 const lineHeight = 70;
 const fontSize = 60;
@@ -65,7 +65,11 @@ console.log(lineArray.length * lineHeight);
 
 const container = document.createElement("div");
 container.style.width = `${width}${unit}`;
-container.innerText = text;
+
+text = text.replace(/–/gm, "&#x2011;");
+text = text.replace(/\n/gm, "<br>");
+
+container.innerHTML = text;
 container.style.margin = "0";
 container.style.position = "absolute";
 container.style.top = "0";
