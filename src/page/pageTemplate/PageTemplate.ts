@@ -17,7 +17,7 @@ export class PageTemplate implements IPageTemplateData {
         return this._documentParents;
     }
 
-    private _documentParents: Document[] = [];
+    protected _documentParents: Document[] = [];
 
     private static _defaultSettings = {
         containers: [],

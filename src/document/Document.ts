@@ -26,6 +26,8 @@ export class Document implements IDocumentData {
         arrayOfPage: [],
     };
 
+    private _this: Document = this;
+
     constructor(settings: IDocumentSettings = {}) {
         if (settings.guides !== void 0) {
             this.guides = {
@@ -60,17 +62,12 @@ export class Document implements IDocumentData {
             if (pageTemplate.name in this.listOfPageTemplate) console.info(`${pageTemplate.name} already exists in the names the registered template list. The last ${pageTemplate.name} addition removes the previous one.`);
         }
 
-        type PageTemplateDocumentChild = DocumentChild & PageTemplate;
-        const newPageTemplate: PageTemplateDocumentChild = new PageTemplate(pageTemplate);
-        newPageTemplate.addDocumentParent = addDocumentParent;
-        this.listOfPageTemplate[pageTemplate.name] = newPageTemplate.addDocumentParent(this);
+        this.listOfPageTemplate[pageTemplate.name] = new PageTemplateDocumentChild(pageTemplate).addDocumentParent(this);
+
     }
 
     public addPage(page: IPageSettings) {
-        type PageDocumentChild = DocumentChild & Page;
-        const newPage: PageDocumentChild = new Page(page);
-        newPage.addDocumentParent = addDocumentParent;
-        this.arrayOfPage.push(newPage.addDocumentParent(this));
+        this.listOfPageTemplate[page.name] = new PageDocumentChild(page).addDocumentParent(this);
     }
 
     public generate(): Promise<IDocumentData> {
@@ -119,20 +116,30 @@ export class Document implements IDocumentData {
     }
 }
 
-
-// @todo this: any ?
 /**
  * @hidden
  */
-function addDocumentParent(this: any, documentParent: Document) {
-    this._documentParents.push(documentParent);
-    return this;
+class PageDocumentChild extends Page {
+    constructor(settings: IPageSettings) {
+        super(settings);
+    }
+    addDocumentParent(document: Document) {
+        this._documentParents.push( document );
+        return this;
+    }
 }
+
 /**
  * @hidden
  */
-interface DocumentChild {
-    addDocumentParent?: (documentParent: Document) => Page;
+class PageTemplateDocumentChild extends PageTemplate {
+    constructor(settings: IPageSettings) {
+        super(settings);
+    }
+    addDocumentParent(document: Document) {
+        this._documentParents.push( document );
+        return this;
+    }
 }
 
 // layDesc initialisation
