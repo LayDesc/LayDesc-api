@@ -1,4 +1,6 @@
 import {loremIpsum} from "../loremIpsum";
+import {IRectangleContainerGeneratorSettings} from "./IRectangleContainerGeneratorSettings";
+import {UNIT} from "../../geometry/generic/UNIT";
 
 /**
  * ContainerGenerator allows you to cut long contents according to a width and height. They return an array of content that can be placed in Containers.
