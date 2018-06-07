@@ -121,6 +121,15 @@ export class Document implements IDocumentData {
  */
 class PageDocumentChild extends Page {
     constructor(settings: IPageSettings) {
+
+        // @todo Which object should be returned ?
+        if ((settings as Page) instanceof Page ) settings = {
+            name: settings.name,
+            unit: settings.unit,
+            containers: settings.containers,
+            margin: settings.margin,
+            pageTemplateName: settings.pageTemplateName,
+        };
         super(settings);
     }
     addDocumentParent(document: Document) {
@@ -134,6 +143,15 @@ class PageDocumentChild extends Page {
  */
 class PageTemplateDocumentChild extends PageTemplate {
     constructor(settings: IPageSettings) {
+
+        // @todo Which object should be returned ?
+        if ((settings as PageTemplate) instanceof PageTemplate ) settings = {
+            pageTemplateName: settings.pageTemplateName,
+            margin: settings.margin,
+            containers: settings.containers,
+            unit: settings.unit,
+            name: settings.name,
+        };
         super(settings);
     }
     addDocumentParent(document: Document) {

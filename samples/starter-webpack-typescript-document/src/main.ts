@@ -27,7 +27,10 @@ const doc = new layDesc.document.Document({
         }),
     ],
     arrayOfPage: [
-        newPageTest
+        newPageTest,
+        {
+            name: "hello"
+        }
     ]
 });
 
