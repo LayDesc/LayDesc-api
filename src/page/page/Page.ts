@@ -9,7 +9,9 @@ export class Page extends PageTemplate implements IPageData {
     constructor(settings: IPageSettings) {
         super(settings);
         if (settings.pageTemplateName !== void 0) this.pageTemplateName = settings.pageTemplateName;
-        if ((settings as PageTemplate) instanceof Page ) return (settings as Page);
+
+        // @todo Which object should be returned ?
+        if ((settings as Page) instanceof Page ) return (settings as Page);
     }
 
     autoContent() {

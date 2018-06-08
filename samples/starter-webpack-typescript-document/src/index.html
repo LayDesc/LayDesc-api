@@ -3,6 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        .page::before {
+            content: counter(page);
+            font-weight: 900;
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: red;
+        }
+
+        .page {
+            width: 21cm;
+            height: 29.7cm;
+            border: solid;
+            box-sizing: content-box;
+            position: relative;
+            counter-increment: page;
+        }
+    </style>
+
 </head>
 <body>
     <script type="text/javascript" src="./main.js"></script>

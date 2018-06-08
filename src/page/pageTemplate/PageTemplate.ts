@@ -32,6 +32,7 @@ export class PageTemplate implements IPageTemplateData {
         this.containers = (settings.containers === void 0) ? PageTemplate._defaultSettings.containers : this.addArrayOfContainers(settings.containers);
         this.unit = (settings.unit === void 0) ? PageTemplate._defaultSettings.unit : settings.unit;
 
+        // @todo Which object should be returned ?
         if ( (settings as PageTemplate) instanceof PageTemplate) return (settings as PageTemplate);
     }
 
@@ -40,6 +41,7 @@ export class PageTemplate implements IPageTemplateData {
 
         for(const container of containers) {
             let newContainerToAdd: RectangleContainer;
+
             //todo test instanceof
             if ( (container as RectangleContainer) instanceof RectangleContainer) {
                 newContainerToAdd = (container as RectangleContainer);

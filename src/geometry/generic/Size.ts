@@ -10,6 +10,8 @@ export class Size implements ISizeData {
     constructor(settings: ISizeSettings = {}) {
         this.width  = (settings.width === void 0)  ? Size._defaultSettings.width  : settings.width;
         this.height = (settings.height === void 0) ? Size._defaultSettings.height : settings.height;
+
+        // @todo Which object should be returned ?
         if (settings instanceof Size ) return (settings as Size);
     }
 

@@ -10,6 +10,7 @@ export class RectangleContainer extends Rectangle implements IRectangleContainer
         super(settings);
         this.margin = new Margin(settings.margin);
 
+        // @todo Which object should be returned ?
         if (settings instanceof RectangleContainer) return (settings as RectangleContainer);
     }
 
