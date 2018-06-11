@@ -6,7 +6,7 @@ import {IFontData} from "../font/IFontData";
 
 export class TextStyle implements ITextStyleData {
     font: Font;
-    margin: Padding;
+    space: Padding;
     unit: UNIT;
 
     private static _defaultSettings = {
@@ -15,14 +15,14 @@ export class TextStyle implements ITextStyleData {
 
     constructor(settings: ITextStyleSettings = {}) {
         this.font = new Font(settings.font);
-        this.margin = new Padding(settings.margin);
+        this.space = new Padding(settings.space);
         this.unit = (settings.unit === void 0) ? TextStyle._defaultSettings.unit : settings.unit;
     }
 
     generate(): ITextStyleData {
         return {
             font: this.font.generate(),
-            margin: this.margin.generate(),
+            space: this.space.generate(),
             unit:this.unit,
         }
     }
@@ -30,12 +30,12 @@ export class TextStyle implements ITextStyleData {
 
 export interface ITextStyleData {
     font: IFontData;
-    margin: IPaddingData;
+    space: IPaddingData;
     unit: UNIT;
 }
 
 export interface ITextStyleSettings {
     font?: IFontSettings;
-    margin?: IPaddingSettings;
+    space?: IPaddingSettings;
     unit?: UNIT;
 }

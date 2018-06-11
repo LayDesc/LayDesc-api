@@ -234,10 +234,10 @@ function generateDocument(): Promise<{message: string, value: Object}> {
         newTextContainerElement.className = "text-container";
         newTextContainerElement.style.overflow = "hidden";
 
-        newTextContainerElement.style.marginTop = textLinesStyle.margin.top + "px";
-        newTextContainerElement.style.marginRight = textLinesStyle.margin.right + "px";
-        newTextContainerElement.style.marginBottom = textLinesStyle.margin.bottom + "px";
-        newTextContainerElement.style.marginLeft = textLinesStyle.margin.left + "px";
+        newTextContainerElement.style.marginTop = textLinesStyle.space.top + "px";
+        newTextContainerElement.style.marginRight = textLinesStyle.space.right + "px";
+        newTextContainerElement.style.marginBottom = textLinesStyle.space.bottom + "px";
+        newTextContainerElement.style.marginLeft = textLinesStyle.space.left + "px";
 
         newTextContainerElement.style.fontFamily = textLinesStyle.font.fontFamily;
         newTextContainerElement.style.fontSize = textLinesStyle.font.fontSize + "px";
