@@ -115,7 +115,13 @@ class TextChildOfContainerGenerator extends Text {
         this._cacheName = JSON.stringify(this.generate());
     }
     cacheLinesGenerated(textLines: ITextLines) {
-        window.localStorage.setItem(this._cacheName, `${JSON.stringify(textLines)}`);
+        try {
+            window.localStorage.setItem(this._cacheName, `${JSON.stringify(textLines)}`);
+        } catch (e) {
+            // @todo optimise cache
+            window.localStorage.clear();
+            window.localStorage.setItem(this._cacheName, `${JSON.stringify(textLines)}`);
+        }
     }
     getCacheOfTextLines() {
         const cacheOfTextLines = window.localStorage.getItem(this._cacheName);
@@ -177,7 +183,14 @@ export class TextMetric {
             this._setFontParametersToElement( this._elementSizingGetter, fontData);
             this._elementSizingGetter.style.height = "1ex";
             XHeightPixelHeight = this._elementSizingGetter.getBoundingClientRect().height;
-            window.localStorage.setItem( keyName, XHeightPixelHeight.toString());
+
+            try {
+                window.localStorage.setItem( keyName, XHeightPixelHeight.toString());
+            } catch (e) {
+                // @todo optimise cache
+                window.localStorage.clear();
+                window.localStorage.setItem( keyName, XHeightPixelHeight.toString());
+            }
         } else {
             XHeightPixelHeight = parseFloat((window.localStorage.getItem(keyName) as string) );
         }
