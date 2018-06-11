@@ -1,9 +1,12 @@
-import {loremIpsum} from "../loremIpsum";
 import {IRectangleContainerGeneratorSettings} from "./IRectangleContainerGeneratorSettings";
 import {UNIT} from "../../geometry/generic/UNIT";
 import {IFontSettings} from "../../elements/font/IFontSettings"
 import {IFontData} from "../../elements/font/IFontData"
 import {Font} from "../../elements/font/Font";
+import {IContainerData} from "../../containers/generic/IContainerData";
+import {ITextSettings, Text} from "../../elements/text/Text";
+import {ITextLines} from "../../elements/text/ITextLines";
+import {env} from "../../env";
 
 /**
  * ContainerGenerator allows you to cut long contents according to a width and height. They return an array of content that can be placed in Containers.
@@ -11,67 +14,120 @@ import {Font} from "../../elements/font/Font";
  * —
  * RectangleContainerGenerator is for RectangleContainer.
  */
-export class RectangleContainerGenerator {
+export class RectangleContainerGenerator implements IContainerData {
     width: number;
     height: number;
     unit: UNIT;
-    content: string;
+    texts: Text[];
 
-    private readonly textMetric: TextMetric;
-    private _lines: string[] = [];
+    private readonly _textMetric: TextMetric;
+    private _textLinesOfTexts: ITextLines[] = [];
 
     constructor(settings: IRectangleContainerGeneratorSettings) {
         this.width = settings.width;
         this.height = settings.height;
         this.unit = settings.unit;
-        this.content = settings.content;
 
-        this.textMetric = new TextMetric(settings.fontSettings);
+        this.texts = [];
+        for(const text of settings.texts) {
+            this.texts.push( new Text(text) );
+        }
 
-        this.generateLinesOfNewContent(settings.content);
+        this._textMetric = new TextMetric();
+
+        for(const text of this.texts) {
+            this.generateLinesOfText(text);
+        }
     }
 
-    public generateLinesOfNewContent(newContent: string) {
-        this.content = newContent;
+    public generateLinesOfText(text: Text) {
+        const newTextChild = new TextChildOfContainerGenerator(text);
 
-        const subsectionsInContent = this.content.split(/\n/);
+        let newTextLines: ITextLines;
 
-        for (const subsection of subsectionsInContent) {
-            const wordsInSubsection = subsection.split(/\s/);
-
-            let line = "";
-            let newLine = "";
-
-            for (const word of wordsInSubsection) {
-                newLine = (line.length === 0) ? word : line + " " + word;
-                if (this.textMetric.getStringPixelWidth(newLine) > this.width) {
-                    this._lines.push(line);
-                    line = word;
-                } else {
-                    line = newLine;
-                }
+        const cacheOfTextLines = newTextChild.getCacheOfTextLines();
+        if(cacheOfTextLines !== false) {
+            if(env._DEBUG) {
+                console.log("mis en cache : ", cacheOfTextLines);
             }
-            this._lines.push(line);
+
+            newTextLines = cacheOfTextLines;
+        } else {
+            if(env._DEBUG) {
+                console.log("pas de mise en cahe…");
+            }
+
+            newTextLines = {
+                lines: [],
+                style: newTextChild.style.generate(),
+            };
+            this._textMetric.font.setSettings(newTextChild.style.font);
+
+            const subsectionsInContent = newTextChild.content.split(/\n/);
+
+            for (const subsection of subsectionsInContent) {
+                const wordsInSubsection = subsection.split(/\s/);
+
+                let line = "";
+                let newLine = "";
+
+                for (const word of wordsInSubsection) {
+                    newLine = (line.length === 0) ? word : line + " " + word;
+                    if (this._textMetric.getStringPixelWidth(newLine) > this.width) {
+                        newTextLines.lines.push(line);
+                        line = word;
+                    } else {
+                        line = newLine;
+                    }
+                }
+                newTextLines.lines.push(line);
+            }
+
+            newTextChild.cacheLinesGenerated(newTextLines);
         }
+
+        this._textLinesOfTexts.push(newTextLines);
     }
     /**
      * return all line generated for specified width container
      */
-    public getLines() {
-        return this._lines;
+    public getTextLinesOfTexts() {
+        return this._textLinesOfTexts;
     }
 
     /**
      * return rectangle containers generated for specified width and height container
      */
     public getContainers() {
-        return ( Math.ceil(this._lines.length * this.textMetric.font.lineHeight / this.height) );
+        return ( Math.ceil(this._textLinesOfTexts.length * this._textMetric.font.lineHeight / this.height) );
+    }
+}
+
+/**
+ * @hidden
+ */
+class TextChildOfContainerGenerator extends Text {
+    private readonly _cacheName: string;
+    constructor(settings: ITextSettings) {
+        super(settings);
+        this._cacheName = JSON.stringify(this.generate());
+    }
+    cacheLinesGenerated(textLines: ITextLines) {
+        window.localStorage.setItem(this._cacheName, `${JSON.stringify(textLines)}`);
+    }
+    getCacheOfTextLines() {
+        const cacheOfTextLines = window.localStorage.getItem(this._cacheName);
+        if( cacheOfTextLines !== null) {
+            return JSON.parse(cacheOfTextLines);
+        } else {
+            return false;
+        }
     }
 }
 
 export class TextMetric {
 
-    readonly font: Font;
+    readonly font = new Font();
 
     // private readonly _windowRendering = window.open();
 
@@ -82,6 +138,7 @@ export class TextMetric {
 
     /**
      * list _pixelValueForUnitSize.size value in PX
+     * @todo save value (don't search size if we have run _pixelValueForUnitSize one time)
      */
     private _pixelValueForUnitSize = {
         value: 1000,
@@ -92,8 +149,7 @@ export class TextMetric {
         },
     };
 
-    constructor(fontSettings: IFontData) {
-        this.font = new Font(fontSettings);
+    constructor() {
         this._context = this._canvas.getContext("2d") as CanvasRenderingContext2D;
         this._setXHeightElementSizingGetter();
         this._setPixelValueForUnitSize();
@@ -104,8 +160,6 @@ export class TextMetric {
             this.font.setSettings(fontSettings);
             this._canvas.style.letterSpacing = this.font.letterSpacing + "px";
         }
-        // this._setFontParametersToElement(this._canvas, this.font.getData());
-
 
         this._context.font = `${this.font.fontSize}${this.font.unit} ${this.font.fontFamily}`;
         return this._context.measureText(string).width;
@@ -113,7 +167,7 @@ export class TextMetric {
 
     getXHeightPixelHeight(fontSettings?: IFontSettings): number {
         if (fontSettings !== void 0) this.font.setSettings(fontSettings);
-        const fontData = this.font.getData();
+        const fontData = this.font.generate();
         const keyName = `${fontData.fontFamily}${fontData.fontSize}${fontData.unit}`;
 
         let XHeightPixelHeight: number;
@@ -141,8 +195,8 @@ export class TextMetric {
         const value = this._pixelValueForUnitSize.value;
         this._pixelValueForUnitSize.unitsToPX = {
             [UNIT.CM]: this._valueToPX(value, UNIT.CM),
-            [UNIT.MM]: this._valueToPX(value, UNIT.CM),
-            [UNIT.PT]: this._valueToPX(value, UNIT.CM),
+            [UNIT.MM]: this._valueToPX(value, UNIT.MM),
+            [UNIT.PT]: this._valueToPX(value, UNIT.PT),
         }
     }
 
