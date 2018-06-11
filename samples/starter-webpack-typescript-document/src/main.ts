@@ -104,12 +104,27 @@ async function processArray(array: any[]) {
 processArray([1, 2, 3]).then(() => {console.log("async processArray ended")});
 console.log("done");
 
+
+let increment = 1;
 document.addEventListener("click", () => {
-    generateDocument().then((value) => {
+    generateDocument(increment).then((value) => {
         console.log(value.message, value.value);
+        requestAnimationFrame(() => {
+            animationTest(increment);
+        });
     });
+    increment++;
     console.log("doc creation started…");
 });
+
+function animationTest(sizeAugmentation: number) {
+    sizeAugmentation++;
+    generateDocument(sizeAugmentation).then(() => {
+        requestAnimationFrame(() => {
+            animationTest(sizeAugmentation);
+        });
+    });
+}
 
 /*
 width: 21cm;
@@ -119,7 +134,7 @@ box-sizing: content-box;
 * */
 
 
-function generateDocument(): Promise<{message: string, value: Object}> {
+function generateDocument(variable = 1): Promise<{message: string, value: Object}> {
     return new Promise((resolve) => {
         let initTime = new Date().getTime();
         while (document.body.hasChildNodes()) {
@@ -136,7 +151,10 @@ function generateDocument(): Promise<{message: string, value: Object}> {
                     style: {
                         font: {
                             fontFamily: "monospace",
-                        }
+                            fontSize: 50 * variable * 0.1,
+                            lineHeight: 60 * variable * 0.1,
+                        },
+                        unit: UNIT.PX,
                     }
                 },
                 {
@@ -144,12 +162,14 @@ function generateDocument(): Promise<{message: string, value: Object}> {
                     style: {
                         font: {
                             fontFamily: "Arial",
-                        }
+                            fontSize: 50 * variable * 0.1,
+                            lineHeight: 60 * variable * 0.1,
+                        },
+                        unit: UNIT.PX,
                     }
                 }
             ],
-            //@todo incorrect unit value: (PX ?)
-            unit: UNIT.CM,
+            unit: UNIT.PX,
             height: 1122.515625,
             width: 793.69,
         });
@@ -157,45 +177,65 @@ function generateDocument(): Promise<{message: string, value: Object}> {
         document.body.innerHTML += "doc created : " + (new Date().getTime() - initTime) + "<br>";
         initTime = new Date().getTime();
 
-        // console.log(autoContent.getTextLinesOfTexts());
-        // console.log(autoContent.getContainers());
-
         const textLinesOfTexts = autoContent.getTextLinesOfTexts();
 
         const arrayOfContainers: HTMLDivElement[] = [];
 
         let totalLineHeight = 0;
+        let textLinesSpaceBefore = 0;
+        let textLinesSpaceAfter = 0;
+        let ContainerHasNoFirstChild = true;
         let containerElement: HTMLDivElement | null = null;
         let textContainer: HTMLDivElement | null = null;
         let new_container_MustBeCreated = true;
 
         for(const textLines of textLinesOfTexts) {
             textContainer = createNewTextContainerElement(textLines.style);
+            if(ContainerHasNoFirstChild) {
+                //remove space for textContainer first child of containerElement
+                textContainer.style.paddingTop = "0";
+                textLinesSpaceAfter += textLines.style.space.bottom;
+            } else {
+                textLinesSpaceBefore += textLines.style.space.top;
+                textLinesSpaceAfter += textLines.style.space.bottom;
+            }
 
             for(const line of textLines.lines) {
                 // @todo unit converter --> currently all is in UNIT.PX
                 totalLineHeight += textLines.style.font.lineHeight;
 
-                if(totalLineHeight > 1122.515625) {
+                const maxHeight = autoContent.height - (textLinesSpaceBefore + textLinesSpaceAfter);
+
+                if(totalLineHeight > maxHeight) {
                     new_container_MustBeCreated = true;
                     totalLineHeight = textLines.style.font.lineHeight;
                 }
 
                 if(new_container_MustBeCreated) {
                     new_container_MustBeCreated = false;
-                    containerElement = createNewContainerElement();
+
+                    containerElement = createNewContainerElement(autoContent);
+                    ContainerHasNoFirstChild = true;
+
                     textContainer = createNewTextContainerElement(textLines.style);
+                    textContainer.style.paddingTop = "0"; //remove space for textContainer first child of containerElement
+                    textLinesSpaceBefore = 0;
+                    textLinesSpaceAfter = textLines.style.space.bottom;
+
                     arrayOfContainers.push(containerElement);
                 }
 
                 const newLineElement = document.createElement("div");
+                newLineElement.style.height = `${textLines.style.font.lineHeight}${textLines.style.unit}`;
                 newLineElement.innerHTML = line;
 
                 (textContainer as HTMLDivElement).appendChild(newLineElement);
                 (containerElement as HTMLDivElement).appendChild(textContainer);
+                ContainerHasNoFirstChild = false;
             }
 
             (containerElement as HTMLDivElement).appendChild((textContainer as HTMLDivElement));
+            ContainerHasNoFirstChild = false;
         }
         arrayOfContainers.push( (containerElement as HTMLDivElement) );
 
@@ -213,14 +253,15 @@ function generateDocument(): Promise<{message: string, value: Object}> {
         });
     });
 
-    function createNewContainerElement() {
+    function createNewContainerElement(autoContent: RectangleContainerGenerator) {
         const newContainerElement = document.createElement("div");
 
         newContainerElement.className = "container";
         newContainerElement.style.overflow = "hidden";
 
-        newContainerElement.style.width = "793.69px";
-        newContainerElement.style.height = "1122.515625px";
+        newContainerElement.style.width =  `${autoContent.width}${autoContent.unit}`;
+        newContainerElement.style.height = `${autoContent.height}${autoContent.unit}`;
+
         newContainerElement.style.boxSizing = "content-box";
         newContainerElement.style.border = "solid 4px";
 
@@ -234,15 +275,15 @@ function generateDocument(): Promise<{message: string, value: Object}> {
         newTextContainerElement.className = "text-container";
         newTextContainerElement.style.overflow = "hidden";
 
-        newTextContainerElement.style.marginTop = textLinesStyle.space.top + "px";
-        newTextContainerElement.style.marginRight = textLinesStyle.space.right + "px";
-        newTextContainerElement.style.marginBottom = textLinesStyle.space.bottom + "px";
-        newTextContainerElement.style.marginLeft = textLinesStyle.space.left + "px";
+        newTextContainerElement.style.paddingTop = `${textLinesStyle.space.top}${textLinesStyle.unit}`;
+        newTextContainerElement.style.paddingRight = `${textLinesStyle.space.right}${textLinesStyle.unit}`;
+        newTextContainerElement.style.paddingBottom = `${textLinesStyle.space.bottom}${textLinesStyle.unit}`;
+        newTextContainerElement.style.paddingLeft = `${textLinesStyle.space.left}${textLinesStyle.unit}`;
 
         newTextContainerElement.style.fontFamily = textLinesStyle.font.fontFamily;
-        newTextContainerElement.style.fontSize = textLinesStyle.font.fontSize + "px";
-        newTextContainerElement.style.lineHeight = textLinesStyle.font.lineHeight + "px";
-        newTextContainerElement.style.letterSpacing = textLinesStyle.font.letterSpacing + "px";
+        newTextContainerElement.style.fontSize = `${textLinesStyle.font.fontSize}${textLinesStyle.unit}`;
+        newTextContainerElement.style.lineHeight = `${textLinesStyle.font.lineHeight}${textLinesStyle.unit}`;
+        newTextContainerElement.style.letterSpacing = `${textLinesStyle.font.letterSpacing}${textLinesStyle.unit}`;
 
         return newTextContainerElement;
     }

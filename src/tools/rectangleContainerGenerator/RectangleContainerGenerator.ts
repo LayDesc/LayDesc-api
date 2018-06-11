@@ -68,12 +68,14 @@ export class RectangleContainerGenerator implements IContainerData {
             for (const subsection of subsectionsInContent) {
                 const wordsInSubsection = subsection.split(/\s/);
 
+                const maxWidth = this.width - (newTextLines.style.space.left + newTextLines.style.space.right);
+
                 let line = "";
                 let newLine = "";
 
                 for (const word of wordsInSubsection) {
                     newLine = (line.length === 0) ? word : line + " " + word;
-                    if (this._textMetric.getStringPixelWidth(newLine) > this.width) {
+                    if (this._textMetric.getStringPixelWidth(newLine) > maxWidth) {
                         newTextLines.lines.push(line);
                         line = word;
                     } else {
