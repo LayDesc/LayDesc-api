@@ -1,5 +1,5 @@
 export {ANCHOR} from "./generic/ANCHOR"
-export {IMarginData, IMarginSettings, Margin} from "./generic/Margin"
+export {IPaddingData, IPaddingSettings, Padding} from "./generic/Padding"
 export {IPositionData, IPositionSettings, Position} from "./generic/Position"
 export {ISizeData, ISizeSettings, Size} from "./generic/Size"
 export {UNIT} from "./generic/UNIT"

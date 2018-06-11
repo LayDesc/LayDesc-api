@@ -1,10 +1,10 @@
-import {IMarginSettings} from "../../geometry/generic/Margin";
+import {IPaddingSettings} from "../../geometry/generic/Padding";
 import {IRectangleContainerSettings} from "../../containers/rectangleContainer/IRectangleContainerSettings";
 import {UNIT} from "../../geometry/generic/UNIT";
 
 export interface IPageTemplateSettings {
     name: string;
-    margin?: IMarginSettings;
+    margin?: IPaddingSettings;
     containers?: IRectangleContainerSettings[];
     unit?: UNIT
 }

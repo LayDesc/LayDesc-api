@@ -1,4 +1,4 @@
-import {Margin} from "../../geometry/generic/Margin";
+import {Padding} from "../../geometry/generic/Padding";
 import {IPageTemplateSettings} from "./IPageTemplateSettings";
 import {IPageTemplateData} from "./IPageTemplateData";
 import {RectangleContainer} from "../../containers/rectangleContainer/RectangleContainer";
@@ -9,7 +9,7 @@ import {UNIT} from "../../geometry/generic/UNIT";
 
 export class PageTemplate implements IPageTemplateData {
     public name: string;
-    public margin: Margin;
+    public margin: Padding;
     public containers: RectangleContainer[];
     public unit: UNIT;
 
@@ -28,7 +28,7 @@ export class PageTemplate implements IPageTemplateData {
         settings: IPageTemplateSettings,
     ) {
         this.name = settings.name;
-        this.margin = new Margin(settings.margin);
+        this.margin = new Padding(settings.margin);
         this.containers = (settings.containers === void 0) ? PageTemplate._defaultSettings.containers : this.addArrayOfContainers(settings.containers);
         this.unit = (settings.unit === void 0) ? PageTemplate._defaultSettings.unit : settings.unit;
 

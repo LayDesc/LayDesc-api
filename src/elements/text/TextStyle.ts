@@ -1,12 +1,12 @@
 import {UNIT} from "../../geometry/generic/UNIT";
 import {IFontSettings} from "../font/IFontSettings";
 import {Font} from "../font/Font";
-import {IMarginData, IMarginSettings, Margin} from "../../geometry/generic/Margin";
+import {IPaddingData, IPaddingSettings, Padding} from "../../geometry/generic/Padding";
 import {IFontData} from "../font/IFontData";
 
 export class TextStyle implements ITextStyleData {
     font: Font;
-    margin: Margin;
+    margin: Padding;
     unit: UNIT;
 
     private static _defaultSettings = {
@@ -15,7 +15,7 @@ export class TextStyle implements ITextStyleData {
 
     constructor(settings: ITextStyleSettings = {}) {
         this.font = new Font(settings.font);
-        this.margin = new Margin(settings.margin);
+        this.margin = new Padding(settings.margin);
         this.unit = (settings.unit === void 0) ? TextStyle._defaultSettings.unit : settings.unit;
     }
 
@@ -30,12 +30,12 @@ export class TextStyle implements ITextStyleData {
 
 export interface ITextStyleData {
     font: IFontData;
-    margin: IMarginData;
+    margin: IPaddingData;
     unit: UNIT;
 }
 
 export interface ITextStyleSettings {
     font?: IFontSettings;
-    margin?: IMarginSettings;
+    margin?: IPaddingSettings;
     unit?: UNIT;
 }

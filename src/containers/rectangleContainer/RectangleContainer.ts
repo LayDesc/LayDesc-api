@@ -1,17 +1,17 @@
 import {IRectangleContainerSettings} from "./IRectangleContainerSettings";
 import {IRectangleContainerData} from "./IRectangleContainerData";
-import {Margin} from "../../geometry/generic/Margin";
+import {Padding} from "../../geometry/generic/Padding";
 import {Rectangle} from "../../geometry/Rectangle";
 import {Text} from "../../elements/text/Text";
 import {IContainerData} from "../generic/IContainerData";
 
 export class RectangleContainer extends Rectangle implements IContainerData, IRectangleContainerData {
-    margin: Margin;
+    margin: Padding;
     texts: Text[];
 
     constructor(settings: IRectangleContainerSettings) {
         super(settings);
-        this.margin = new Margin(settings.margin);
+        this.margin = new Padding(settings.margin);
 
         this.texts = [];
         for(const text of settings.texts) {
