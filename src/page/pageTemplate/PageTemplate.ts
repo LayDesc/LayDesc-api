@@ -9,7 +9,7 @@ import {UNIT} from "../../geometry/generic/UNIT";
 
 export class PageTemplate implements IPageTemplateData {
     public name: string;
-    public margin: Padding;
+    public pageMargin: Padding;
     public containers: RectangleContainer[];
     public unit: UNIT;
 
@@ -28,7 +28,7 @@ export class PageTemplate implements IPageTemplateData {
         settings: IPageTemplateSettings,
     ) {
         this.name = settings.name;
-        this.margin = new Padding(settings.margin);
+        this.pageMargin = new Padding(settings.pageMargin);
         this.containers = (settings.containers === void 0) ? PageTemplate._defaultSettings.containers : this.addArrayOfContainers(settings.containers);
         this.unit = (settings.unit === void 0) ? PageTemplate._defaultSettings.unit : settings.unit;
 
@@ -62,7 +62,7 @@ export class PageTemplate implements IPageTemplateData {
         }
         return {
             containers: containers,
-            margin: this.margin.generate(),
+            pageMargin: this.pageMargin.generate(),
             name: this.name,
             unit: this.unit,
         }

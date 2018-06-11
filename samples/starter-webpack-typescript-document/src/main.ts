@@ -27,7 +27,7 @@ const doc = new layDesc.document.Document({
     pageTemplates: [
         {
             name: "left",
-            margin:{},
+            pageMargin:{},
         },
         new PageTemplate({
             name: "right",

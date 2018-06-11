@@ -4,7 +4,7 @@ import {UNIT} from "../../geometry/generic/UNIT";
 
 export interface IPageTemplateSettings {
     name: string;
-    margin?: IPaddingSettings;
+    pageMargin?: IPaddingSettings;
     containers?: IRectangleContainerSettings[];
     unit?: UNIT
 }

@@ -25,7 +25,7 @@ export class Page extends PageTemplate implements IPageData {
         }
         return {
             containers: containers,
-            margin: this.margin.generate(),
+            pageMargin: this.pageMargin.generate(),
             name: this.name,
             pageTemplateName: this.pageTemplateName,
             unit: this.unit,

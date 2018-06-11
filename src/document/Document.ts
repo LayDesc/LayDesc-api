@@ -127,7 +127,7 @@ class PageDocumentChild extends Page {
             name: settings.name,
             unit: settings.unit,
             containers: settings.containers,
-            margin: settings.margin,
+            pageMargin: settings.pageMargin,
             pageTemplateName: settings.pageTemplateName,
         };
         super(settings);
@@ -147,7 +147,7 @@ class PageTemplateDocumentChild extends PageTemplate {
         // @todo Which object should be returned ?
         if ((settings as PageTemplate) instanceof PageTemplate ) settings = {
             pageTemplateName: settings.pageTemplateName,
-            margin: settings.margin,
+            pageMargin: settings.pageMargin,
             containers: settings.containers,
             unit: settings.unit,
             name: settings.name,
