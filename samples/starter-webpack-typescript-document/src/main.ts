@@ -4,6 +4,10 @@ import {PageTemplate} from "../../../src/page/pageTemplate/PageTemplate";
 import {RectangleContainerGenerator} from "../../../src/tools/rectangleContainerGenerator/RectangleContainerGenerator";
 import {UNIT} from "../../../src/geometry/generic/UNIT";
 import {loremIpsum} from "../../../src/tools/loremIpsum";
+import {Text} from "../../../src/elements/text/Text";
+import {Image} from "../../../src/elements/image/Image";
+import {ITextLines} from "../../../src/elements/text/ITextLines";
+import {ITextStyleData} from "../../../src/elements/text/TextStyle";
 
 const logo = require("./LayDesc_icon-600.png");
 
@@ -102,7 +106,7 @@ console.log("done");
 
 document.addEventListener("click", () => {
     generateDocument().then((value) => {
-        console.log(value);
+        console.log(value.message, value.value);
     });
     console.log("doc creation started…");
 });
@@ -115,7 +119,7 @@ box-sizing: content-box;
 * */
 
 
-function generateDocument() {
+function generateDocument(): Promise<{message: string, value: Object}> {
     return new Promise((resolve) => {
         let initTime = new Date().getTime();
         while (document.body.hasChildNodes()) {
@@ -126,62 +130,120 @@ function generateDocument() {
         initTime = new Date().getTime();
 
         const autoContent = new RectangleContainerGenerator({
-            content: loremIpsum() + loremIpsum() + loremIpsum(),
+            texts: [
+                {
+                    content: "title",
+                    style: {
+                        font: {
+                            fontFamily: "monospace",
+                        }
+                    }
+                },
+                {
+                    content: loremIpsum() + loremIpsum() + loremIpsum(),
+                    style: {
+                        font: {
+                            fontFamily: "Arial",
+                        }
+                    }
+                }
+            ],
+            //@todo incorrect unit value: (PX ?)
             unit: UNIT.CM,
             height: 1122.515625,
             width: 793.69,
-            fontSettings: {
-                lineHeight: 20,
-                fontSize: 20,
-                fontFamily: "Sangbleu Kingdom",
-                letterSpacing: 0,
-                unit: UNIT.PX,
-            }
         });
 
         document.body.innerHTML += "doc created : " + (new Date().getTime() - initTime) + "<br>";
         initTime = new Date().getTime();
 
-        // console.log(autoContent.getLines());
+        // console.log(autoContent.getTextLinesOfTexts());
         // console.log(autoContent.getContainers());
 
-        const lines = autoContent.getLines();
+        const textLinesOfTexts = autoContent.getTextLinesOfTexts();
 
-        let lineNumber = 0;
-        let pageTest = document.createElement("div");
-        let newPage = true;
-        for(const line of lines) {
-            lineNumber++;
-            if(lineNumber * 20 > 1122.515625) {
-                lineNumber = 1;
-                newPage = true;
-                document.body.appendChild(pageTest as HTMLDivElement);
+        const arrayOfContainers: HTMLDivElement[] = [];
+
+        let totalLineHeight = 0;
+        let containerElement: HTMLDivElement | null = null;
+        let textContainer: HTMLDivElement | null = null;
+        let new_container_MustBeCreated = true;
+
+        for(const textLines of textLinesOfTexts) {
+            textContainer = createNewTextContainerElement(textLines.style);
+
+            for(const line of textLines.lines) {
+                // @todo unit converter --> currently all is in UNIT.PX
+                totalLineHeight += textLines.style.font.lineHeight;
+
+                if(totalLineHeight > 1122.515625) {
+                    new_container_MustBeCreated = true;
+                    totalLineHeight = textLines.style.font.lineHeight;
+                }
+
+                if(new_container_MustBeCreated) {
+                    new_container_MustBeCreated = false;
+                    containerElement = createNewContainerElement();
+                    textContainer = createNewTextContainerElement(textLines.style);
+                    arrayOfContainers.push(containerElement);
+                }
+
+                const newLineElement = document.createElement("div");
+                newLineElement.innerHTML = line;
+
+                (textContainer as HTMLDivElement).appendChild(newLineElement);
+                (containerElement as HTMLDivElement).appendChild(textContainer);
             }
 
-            if(newPage) {
-                newPage = false;
-                pageTest = document.createElement("div");
-                pageTest.className = "page";
-                pageTest.style.lineHeight = "20px";
-                pageTest.style.fontSize = "20px";
-                pageTest.style.fontFamily = "Sangbleu Kingdom";
-                pageTest.style.letterSpacing = "0px";
-            }
-
-            const newLine = document.createElement("div");
-            newLine.style.display = "block";
-            if(line === "") {
-                newLine.style.height = "1em";
-            }
-            newLine.innerHTML = line;
-            pageTest.appendChild(newLine);
+            (containerElement as HTMLDivElement).appendChild((textContainer as HTMLDivElement));
         }
+        arrayOfContainers.push( (containerElement as HTMLDivElement) );
 
         document.body.innerHTML += "body created : " + (new Date().getTime() - initTime) + "<br>";
         initTime = new Date().getTime();
 
-        document.body.appendChild(pageTest as HTMLDivElement);
+        for(const containerElement of arrayOfContainers) {
+            document.body.appendChild(containerElement as HTMLDivElement);
+        }
+
         document.body.style.color = (document.body.style.color === "red") ? "blue": "red";
-        resolve("…document generated");
+        resolve({
+            message: "…document generated",
+            value: textLinesOfTexts,
+        });
     });
+
+    function createNewContainerElement() {
+        const newContainerElement = document.createElement("div");
+
+        newContainerElement.className = "container";
+        newContainerElement.style.overflow = "hidden";
+
+        newContainerElement.style.width = "793.69px";
+        newContainerElement.style.height = "1122.515625px";
+        newContainerElement.style.boxSizing = "content-box";
+        newContainerElement.style.border = "solid 4px";
+
+
+        return newContainerElement;
+    }
+
+    function createNewTextContainerElement(textLinesStyle: ITextStyleData) {
+        const newTextContainerElement = document.createElement("div");
+
+        newTextContainerElement.className = "text-container";
+        newTextContainerElement.style.overflow = "hidden";
+
+        newTextContainerElement.style.marginTop = textLinesStyle.margin.top + "px";
+        newTextContainerElement.style.marginRight = textLinesStyle.margin.right + "px";
+        newTextContainerElement.style.marginBottom = textLinesStyle.margin.bottom + "px";
+        newTextContainerElement.style.marginLeft = textLinesStyle.margin.left + "px";
+
+        newTextContainerElement.style.fontFamily = textLinesStyle.font.fontFamily;
+        newTextContainerElement.style.fontSize = textLinesStyle.font.fontSize + "px";
+        newTextContainerElement.style.lineHeight = textLinesStyle.font.lineHeight + "px";
+        newTextContainerElement.style.letterSpacing = textLinesStyle.font.letterSpacing + "px";
+
+        return newTextContainerElement;
+    }
 }
