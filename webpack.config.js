@@ -3,6 +3,7 @@ const srcDirectoryName = "src";
 const distDirectoryName = "dist";
 
 module.exports = {
+    mode: "development",
     entry:[
         path.join(__dirname, srcDirectoryName,"/main.ts"),
     ],
@@ -12,17 +13,25 @@ module.exports = {
         port: 9000,
     },
     output: {
-        filename: 'LayDesc.js',
+        filename: 'layDesc.js',
         path: path.resolve(__dirname, distDirectoryName),
-        library: "LayDesc",
+        library: "layDesc",
         libraryTarget: "umd"
     },
+    resolve: {
+        extensions: ['.ts', '.js', '.json']
+    },
+    devtool: 'source-map',
     module: {
         rules: [
             {
                 test: /\.ts$/,
                 loader: "ts-loader",
+                exclude: /node_modules/,
             }
         ]
+    },
+    optimization: {
+        minimize: true,
     }
 };

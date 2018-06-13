@@ -2,7 +2,8 @@
   "name": "laydesc-api",
   "version": "0.0.1",
   "description": "LayDesc API. Programming interface for creating LayDesc documents. LayDesc API allows generating a generic representation of LayDesc document content (in JSON format). To visualize a LayDesc document, use this API with a LayDesc-renderer (currently LayDesc-renderer-html or LayDesc-renderer-InDesign)",
-  "main": "dist/main.js",
+  "main": "./dist/layDesc.js",
+  "typings": "./dist/layDesc.d.ts",
   "scripts": {
     "build-typedoc": "typedoc --options ./typedoc.js ./src/",
     "clean-typedoc": "rm -rf ./lib/documentation"
